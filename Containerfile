@@ -7,9 +7,8 @@ FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
 RUN dnf install -y dnf-plugins-core && \
     dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
-# Create the symlink for Brave browser before installation
-RUN mkdir -p /opt/brave.com/brave && \
-    ln -sf /opt/brave.com/brave/brave-browser /usr/bin/brave-browser
+# Redirect /opt to /var/opt
+RUN ln -sfn /var/opt /opt
 
 # Install the Brave browser and remove Firefox
 RUN dnf remove -y firefox 
