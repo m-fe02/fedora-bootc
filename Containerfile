@@ -3,17 +3,15 @@ ARG FEDORA_DE=silverblue
 
 FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
 
-# Add the Brave browser repository
-RUN curl -fsSLo /etc/yum.repos.d/brave-browser.repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
-    rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
-# Install Brave Browser using rpm-ostree
-RUN rpm-ostree install brave-browser
+# Add the Visual Studio Code repository and GPG key
+RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+    echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
 
 # Remove Firefox
 RUN dnf remove -y firefox
 
-RUN dnf in -y neovim &&\
+RUN dnf in -y neovim \
+    code &&\
     dnf clean all
 
 # Set the default target to graphical
