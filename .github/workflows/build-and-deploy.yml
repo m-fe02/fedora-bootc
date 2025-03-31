@@ -8,23 +8,33 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-      push-store-image:
-        runs-on: ubuntu-latest
-        defaults:
-          run:
-            working-directory: '.'
-        steps:
-          - name: 'Checkout GitHub Action'
-            uses: actions/checkout@main
+  push-store-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: '.'
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@main
 
-          - name: 'Login to GitHub Container Registry'
-            uses: docker/login-action@v1
-            with:
-              registry: ghcr.io
-              username: ${{github.actor}}
-              password: ${{secrets.GITHUB_TOKEN}}
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-          - name: 'Build Inventory Image'
-            run: |
-              podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic --build-arg=FEDORA_DE=cosmic-atomic
-              podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
+      - name: 'Build and Push Cosmic-Atomic Image'
+        run: |
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic --build-arg FEDORA_DE=cosmic
+          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
+
+      - name: 'Build and Push GNOME Image'
+        run: |
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:gnome --build-arg FEDORA_DE=gnome
+          podman push ghcr.io/m-fe02/fedora-bootc:gnome
+
+      - name: 'Build and Push KDE Image'
+        run: |
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:kde --build-arg FEDORA_DE=kde
+          podman push ghcr.io/m-fe02/fedora-bootc:kde
