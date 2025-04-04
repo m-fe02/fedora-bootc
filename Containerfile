@@ -9,7 +9,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
 
 # Add the Brave browser repository, install Brave, and relocate /opt directory
 RUN dnf install -y dnf-plugins-core && \
-    dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
+    dnf config-manager addrepo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo && \
     rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc && \
     dnf install -y brave-browser && \
     mv /opt/brave.com /var/opt/brave.com && \
