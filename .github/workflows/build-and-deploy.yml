@@ -26,15 +26,15 @@ jobs:
 
       - name: 'Build and Push Cosmic-Atomic Image'
         run: |
-          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic --build-arg FEDORA_DE=cosmic
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic --build-arg FEDORA_DE=cosmic-atomic
           podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
 
       - name: 'Build and Push GNOME Image'
         run: |
-          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:gnome --build-arg FEDORA_DE=gnome
-          podman push ghcr.io/m-fe02/fedora-bootc:gnome
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:silverblue --build-arg FEDORA_DE=silverblue
+          podman push ghcr.io/m-fe02/fedora-bootc:silverblue
 
       - name: 'Build and Push KDE Image'
         run: |
-          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:kde --build-arg FEDORA_DE=kde
-          podman push ghcr.io/m-fe02/fedora-bootc:kde
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:kde --build-arg FEDORA_DE=kinoite
+          podman push ghcr.io/m-fe02/fedora-bootc:kinoite

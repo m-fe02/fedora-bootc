@@ -1,17 +1,7 @@
 ARG FEDORA_MAJOR_VERSION=42
-ARG FEDORA_DE=gnome
+ARG FEDORA_DE=silverblue
 
-FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
-
-# Install the desktop environment (GNOME, KDE, or Cosmic)
-RUN if [ "$FEDORA_DE" = "gnome" ]; then \
-        dnf install -y @workstation-product-environment; \
-    elif [ "$FEDORA_DE" = "kde" ]; then \
-        dnf install -y @kde-desktop-environment; \
-    elif [ "$FEDORA_DE" = "cosmic" ]; then \
-        dnf install -y cosmic-desktop cosmic-store; \
-    fi && \
-    dnf clean all
+FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
 
 # Add the Visual Studio Code repository and GPG key
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
