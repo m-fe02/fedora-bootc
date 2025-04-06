@@ -8,7 +8,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
 
 # Temporarily create /opt/brave.com as a real directory
-RUN mkdir -p /opt/brave.com
+RUN [ ! -d /opt/brave.com ] && mkdir -p /opt/brave.com
 
 # Add the Brave browser repository and install Brave
 RUN dnf install -y dnf-plugins-core && \
