@@ -16,9 +16,7 @@ RUN dnf install -y neovim code && \
     dnf clean all
 
 # Configure Flathub and remove Fedora Flatpak remotes
-RUN flatpak remote-delete fedora && \
-    flatpak remote-delete fedora-testing && \
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+RUN flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo \
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
