@@ -12,7 +12,7 @@ RUN dnf remove -y firefox firefox-langpacks && \
     dnf clean all
 
 # Install additional tools
-RUN dnf install -y neovim code && \
+RUN dnf install -y neovim code fastfetch && \
     dnf clean all
 
 # Configure Flathub and remove Fedora Flatpak remotes
