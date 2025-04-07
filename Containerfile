@@ -3,6 +3,10 @@ ARG FEDORA_DE=silverblue
 
 FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
 
+# Upgrade all packages to their latest versions
+RUN dnf upgrade -y && \
+    dnf clean all
+
 # Add the Visual Studio Code repository and GPG key
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
@@ -17,6 +21,10 @@ RUN dnf install -y neovim code fastfetch && \
 
 # Configure Flathub and remove Fedora Flatpak remotes
 RUN flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Perform cleanup of unused packages
+RUN dnf autoremove -y && \
+    dnf clean all
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
