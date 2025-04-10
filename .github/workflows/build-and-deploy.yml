@@ -28,3 +28,8 @@ jobs:
         run: |
           podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic --build-arg FEDORA_DE=cosmic-atomic
           podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
+
+      - name: 'Build and Push Silverblue Image'
+        run: |
+          podman build -f Containerfile --tag ghcr.io/m-fe02/fedora-bootc:silverblue --build-arg FEDORA_DE=silverblue
+          podman push ghcr.io/m-fe02/fedora-bootc:silverblue
