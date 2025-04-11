@@ -10,20 +10,19 @@ RUN dnf upgrade -y && \
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
 
-# Remove Firefox and its language packs from the base image
-RUN dnf remove -y firefox firefox-langpacks && \
+# Remove unnecessary packages and clean up
+RUN dnf remove -y \
+    firefox firefox-langpacks \
+    yelp gnome-tour gnome-system-monitor \
+    gnome-shell-extension-common gnome-shell-extension-apps-menu \
+    gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu \
+    gnome-shell-extension-window-list gnome-shell-extension-background-logo \
+    gnome-classic-session && \
     dnf clean all
 
-# Remove specific packages for the silverblue image
-RUN dnf remove -y yelp gnome-tour gnome-system-monitor gnome-shell-extension-common gnome-shell-extension-apps-menu gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-shell-extension-background-logo gnome-classic-session && \
-    dnf clean all
-
-# Install additional tools
+# Install additional tools and perform cleanup
 RUN dnf install -y neovim code fastfetch && \
-    dnf clean all
-
-# Perform cleanup of unused packages
-RUN dnf autoremove -y && \
+    dnf autoremove -y && \
     dnf clean all
 
 # Set the default target to graphical

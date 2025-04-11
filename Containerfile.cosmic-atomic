@@ -14,12 +14,9 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
 RUN dnf remove -y firefox firefox-langpacks && \
     dnf clean all
 
-# Install additional tools
+# Install additional tools and perform cleanup
 RUN dnf install -y neovim code fastfetch && \
-    dnf clean all
-
-# Perform cleanup of unused packages
-RUN dnf autoremove -y && \
+    dnf autoremove -y && \
     dnf clean all
 
 # Set the default target to graphical
