@@ -3,6 +3,9 @@ ARG FEDORA_DE=silverblue
 
 FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
 
+# Pass FEDORA_DE as an environment variable
+ENV FEDORA_DE=${FEDORA_DE}
+
 # Upgrade all packages to their latest versions
 RUN dnf upgrade -y && \
     dnf clean all
