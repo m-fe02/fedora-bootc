@@ -15,6 +15,12 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
 RUN dnf remove -y firefox firefox-langpacks && \
     dnf clean all
 
+# Remove specific packages for the silverblue image
+RUN if [ "$FEDORA_DE" = "silverblue" ]; then \
+    dnf remove -y yelp gnome-tour gnome-system-monitor gnome-shell-extension-common gnome-shell-extension-apps-menu gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-shell-extension-background-logo gnome-classic-session && \
+    dnf clean all; \
+    fi
+
 # Install additional tools
 RUN dnf install -y neovim code fastfetch && \
     dnf clean all
