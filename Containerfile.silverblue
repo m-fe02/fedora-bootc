@@ -1,10 +1,6 @@
 ARG FEDORA_MAJOR_VERSION=42
-ARG FEDORA_DE=silverblue
 
-FROM quay.io/fedora-ostree-desktops/${FEDORA_DE}:${FEDORA_MAJOR_VERSION}
-
-# Pass FEDORA_DE as an environment variable
-ENV FEDORA_DE=${FEDORA_DE}
+FROM quay.io/fedora-ostree-desktops/silverblue:${FEDORA_MAJOR_VERSION}
 
 # Upgrade all packages to their latest versions
 RUN dnf upgrade -y && \
@@ -19,10 +15,8 @@ RUN dnf remove -y firefox firefox-langpacks && \
     dnf clean all
 
 # Remove specific packages for the silverblue image
-RUN if [ "$FEDORA_DE" = "silverblue" ]; then \
-    dnf remove -y yelp gnome-tour gnome-system-monitor gnome-shell-extension-common gnome-shell-extension-apps-menu gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-shell-extension-background-logo gnome-classic-session && \
-    dnf clean all; \
-    fi
+RUN dnf remove -y yelp gnome-tour gnome-system-monitor gnome-shell-extension-common gnome-shell-extension-apps-menu gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-shell-extension-background-logo gnome-classic-session && \
+    dnf clean all
 
 # Install additional tools
 RUN dnf install -y neovim code fastfetch && \
