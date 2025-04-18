@@ -15,7 +15,7 @@ RUN dnf remove -y firefox firefox-langpacks && \
     dnf clean all
 
 # Install additional tools and perform cleanup
-RUN dnf install -y neovim code fastfetch && \
+RUN dnf install -y neovim code distrobox fastfetch && \
     dnf autoremove -y && \
     dnf clean all
 
