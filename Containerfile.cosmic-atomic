@@ -11,7 +11,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
 
 # Remove Firefox and its language packs from the base image
-RUN dnf remove -y firefox firefox-langpacks && \
+RUN dnf remove -y firefox firefox-langpacks gnome-system-monitor && \
     dnf clean all
 
 # Install additional tools and perform cleanup
