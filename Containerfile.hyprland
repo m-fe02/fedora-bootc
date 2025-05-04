@@ -1,6 +1,6 @@
 ARG FEDORA_MAJOR_VERSION=42
 
-FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
+FROM quay.io/fedora/fedora-sway-atomic:${FEDORA_MAJOR_VERSION}
 
 # Upgrade all packages to their latest versions
 RUN dnf upgrade -y && \
