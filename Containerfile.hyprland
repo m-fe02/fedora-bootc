@@ -4,7 +4,7 @@ FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
 
 # Upgrade all packages to their latest versions
 RUN dnf upgrade -y && \
-    dnf install -y dnf-plugins-core && \
+    dnf install -y dnf5-plugins && \
     dnf clean all
 
 # Add the Visual Studio Code repository and GPG key
