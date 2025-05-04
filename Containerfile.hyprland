@@ -15,7 +15,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
 RUN dnf copr enable -y solopasha/hyprland
 
 # Install Hyprland and additional tools
-RUN dnf install -y hyprland waybar dunst grimblast neovim code distrobox fastfetch && \
+RUN dnf install -y hyprland waybar dunst grimblast neovim code distrobox fastfetch flatpak && \
     dnf autoremove -y && \
     dnf clean all
 
