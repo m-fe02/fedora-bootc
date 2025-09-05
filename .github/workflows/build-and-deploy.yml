@@ -30,7 +30,7 @@ jobs:
           podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
           podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
 
-      - name: 'Build and Push Kinoite Image'
+      - name: 'Build and Push Silverblue Image'
         run: |
-          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite
+          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:kinoite
           podman push ghcr.io/m-fe02/fedora-bootc:kinoite
