@@ -11,7 +11,7 @@ RUN dnf remove -y firefox firefox-langpacks gnome-tour yelp gnome-shell-extensio
     dnf clean all
 
 # Install additional tools and perform cleanup
-RUN dnf install -y neovim adw-gtk3-theme distrobox gnome-tweaks fastfetch && \
+RUN dnf install -y neovim adw-gtk3-theme distrobox gnome-tweaks stow fastfetch && \
     dnf autoremove -y && \
     dnf clean all
 
