@@ -1,0 +1,19 @@
+ARG FEDORA_MAJOR_VERSION=42
+
+FROM quay.io/fedora-ostree-desktops/silverblue:${FEDORA_MAJOR_VERSION}
+
+# Upgrade all packages to their latest versions
+RUN dnf upgrade -y && \
+    dnf clean all
+    
+# Remove Firefox and its dependencies
+RUN dnf remove -y firefox firefox-langpacks gnome-tour yelp gnome-shell-extension-background-logo gnome-shell-extension-window-list gnome-classic-session gnome-shell-extension-places-menu gnome-shell-extension-launch-new-instance gnome-shell-extension-apps-menu gnome-shell-extension-common && \
+    dnf clean all
+
+# Install additional tools and perform cleanup
+RUN dnf install -y neovim adw-gtk3-theme distrobox gnome-tweaks fastfetch && \
+    dnf autoremove -y && \
+    dnf clean all
+
+# Set the default target to graphical
+RUN systemctl set-default graphical.target

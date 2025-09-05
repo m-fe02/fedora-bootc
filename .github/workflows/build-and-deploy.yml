@@ -34,8 +34,3 @@ jobs:
         run: |
           podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite
           podman push ghcr.io/m-fe02/fedora-bootc:kinoite
-
-      - name: 'Build and Push Hyprland Image'
-        run: |
-          podman build -f Containerfile.hyprland --tag ghcr.io/m-fe02/fedora-bootc:hyprland
-          podman push ghcr.io/m-fe02/fedora-bootc:hyprland
