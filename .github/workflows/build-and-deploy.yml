@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 6 * * *'
-    - cron: '0 18 * * *'
+    - cron: '0 5 * * *'
+    - cron: '0 17 * * *'
 
 jobs:
   push-store-image:
