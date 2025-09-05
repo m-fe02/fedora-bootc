@@ -32,5 +32,5 @@ jobs:
 
       - name: 'Build and Push Silverblue Image'
         run: |
-          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:kinoite
-          podman push ghcr.io/m-fe02/fedora-bootc:kinoite
+          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue
+          podman push ghcr.io/m-fe02/fedora-bootc:silverblue
