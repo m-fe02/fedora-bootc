@@ -11,7 +11,8 @@ RUN dnf remove -y firefox firefox-langpacks gnome-tour yelp gnome-shell-extensio
     dnf clean all
 
 # Add copr for Bibata Cursor Theme
-RUN dnf copr enable peterwu/rendezvous
+RUN dnf copr enable peterwu/rendezvous && \
+    dnf makecache
 
 # Install additional tools and perform cleanup
 RUN dnf install -y neovim adw-gtk3-theme bibata-cursor-themes distrobox gnome-tweaks stow fastfetch && \
