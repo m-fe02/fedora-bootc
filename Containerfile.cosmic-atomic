@@ -1,4 +1,4 @@
-ARG FEDORA_MAJOR_VERSION=42
+ARG FEDORA_MAJOR_VERSION=rawhide
 
 FROM quay.io/fedora-ostree-desktops/cosmic-atomic:${FEDORA_MAJOR_VERSION}
 
@@ -6,12 +6,20 @@ FROM quay.io/fedora-ostree-desktops/cosmic-atomic:${FEDORA_MAJOR_VERSION}
 RUN dnf upgrade -y && \
     dnf clean all
 
+RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+
 # Remove Firefox and its language packs from the base image
-RUN dnf remove -y firefox firefox-langpacks gnome-system-monitor && \
+RUN dnf remove -y firefox \
+    firefox-langpacks \
+    gnome-system-monitor && \
     dnf clean all
 
 # Install additional tools and perform cleanup
-RUN dnf install -y neovim distrobox stow fastfetch && \
+RUN dnf install -y neovim \
+    distrobox \
+    stow \
+    fastfetch \
+    tailscale && \
     dnf autoremove -y && \
     dnf clean all
 
