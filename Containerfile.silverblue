@@ -8,8 +8,6 @@ RUN dnf upgrade -y && \
 
 RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-RUN curl -s -o /etc/yum.repos.d/peterwu-rendezvous-fedora-42.repo https://copr.fedorainfracloud.org/coprs/peterwu/rendezvous/repo/fedora-42/peterwu-rendezvous-fedora-42.repo
-
 # Remove Firefox and its dependencies
 RUN dnf remove -y \
     firefox \
@@ -28,9 +26,7 @@ RUN dnf remove -y \
 # Install additional tools and perform cleanup
 RUN dnf install -y neovim \
     adw-gtk3-theme \
-    bibata-cursor-themes \
     distrobox \
-    dfu-util \
     gnome-tweaks \
     stow \
     fastfetch \
