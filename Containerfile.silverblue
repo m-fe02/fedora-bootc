@@ -29,6 +29,7 @@ RUN dnf install -y neovim \
     distrobox \
     gnome-tweaks \
     stow \
+    swaybg \
     fastfetch \
     tailscale \
     niri && \
