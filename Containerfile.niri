@@ -22,7 +22,7 @@ RUN dnf install -y \
     dnf clean all
 
 # Enable GDM
-RUN systemctl enable gdm.service
+RUN systemctl enable lightdm.service
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
