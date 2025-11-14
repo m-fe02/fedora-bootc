@@ -10,11 +10,12 @@ RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable
 
 # Install additional tools and perform cleanup
 RUN dnf install -y \
-    lightdm \
+    sddm \
     niri \
     neovim \
     distrobox \
     stow \
+    swaybg \
     fastfetch \
     xwayland-satellite \
     tailscale && \
@@ -22,7 +23,7 @@ RUN dnf install -y \
     dnf clean all
 
 # Enable GDM
-RUN systemctl enable lightdm.service
+RUN systemctl enable sddm.service
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
