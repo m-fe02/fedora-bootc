@@ -41,10 +41,3 @@ jobs:
           podman push ghcr.io/m-fe02/fedora-bootc:silverblue
           podman rmi ghcr.io/m-fe02/fedora-bootc:silverblue
           podman system prune -a -f
-
-      - name: 'Build and Push Niri Image'
-        run: |
-          podman build -f Containerfile.niri --tag ghcr.io/m-fe02/fedora-bootc:niri
-          podman push ghcr.io/m-fe02/fedora-bootc:niri
-          podman rmi ghcr.io/m-fe02/fedora-bootc:niri
-          podman system prune -a -f
