@@ -10,7 +10,7 @@ RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable
 
 # Install additional tools and perform cleanup
 RUN dnf install -y \
-    gdm \
+    lightdm \
     niri \
     neovim \
     distrobox \
