@@ -32,6 +32,8 @@ RUN dnf install -y neovim \
     swaybg \
     fastfetch \
     tailscale \
+    network-manager-applet \
+    blueman \
     niri && \
     dnf autoremove -y && \
     dnf clean all
