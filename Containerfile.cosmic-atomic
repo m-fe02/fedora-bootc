@@ -23,11 +23,6 @@ RUN dnf install -y neovim \
     dnf autoremove -y && \
     dnf clean all
 
-# Override bootc-fetch-apply-updates service to stage updates without auto-reboot
-RUN mkdir -p /etc/systemd/system/bootc-fetch-apply-updates.service.d && \
-    printf '[Service]\nExecStart=\nExecStart=/usr/bin/bootc upgrade\n' > \
-    /etc/systemd/system/bootc-fetch-apply-updates.service.d/no-reboot.conf
-
 # Enable bootc automatic update timer
 RUN systemctl enable bootc-fetch-apply-updates.timer
 
