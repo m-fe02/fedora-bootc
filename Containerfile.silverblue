@@ -29,17 +29,13 @@ RUN dnf install -y neovim \
     distrobox \
     gnome-tweaks \
     stow \
-    swaybg \
     fastfetch \
     tailscale \
-    network-manager-applet \
-    blueman \
-    niri && \
     dnf autoremove -y && \
     dnf clean all
 
 # Enable bootc automatic update timer
-RUN systemctl enable bootc-fetch-apply-updates.timer
+# RUN systemctl enable bootc-fetch-apply-updates.timer
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
