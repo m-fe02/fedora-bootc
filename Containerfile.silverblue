@@ -30,7 +30,7 @@ RUN dnf install -y neovim \
     gnome-tweaks \
     stow \
     fastfetch \
-    tailscale \
+    tailscale && \
     dnf autoremove -y && \
     dnf clean all
 
