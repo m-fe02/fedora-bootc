@@ -11,6 +11,7 @@ RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable
 # Remove Firefox and its language packs from the base image
 RUN dnf remove -y firefox \
     firefox-langpacks \
+    cosmic-store \
     gnome-system-monitor && \
     dnf clean all
 
