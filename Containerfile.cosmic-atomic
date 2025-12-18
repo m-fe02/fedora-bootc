@@ -20,6 +20,7 @@ RUN dnf install -y neovim \
     distrobox \
     stow \
     fastfetch \
+    luarocks \
     tailscale && \
     dnf autoremove -y && \
     dnf clean all
