@@ -30,6 +30,13 @@ jobs:
 
       - name: 'Build and Push Cosmic-Atomic Image'
         run: |
+          podman build -f Containerfile.cosmic-custom --tag ghcr.io/m-fe02/fedora-bootc:cosmic-custom
+          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-custom
+          podman rmi ghcr.io/m-fe02/fedora-bootc:cosmic-custom
+          podman system prune -a -f
+
+      - name: 'Build and Push Cosmic-Atomic Image'
+        run: |
           podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
           podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
           podman rmi ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
