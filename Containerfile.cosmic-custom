@@ -18,7 +18,10 @@ RUN dnf install -y \
     distrobox \
     stow \
     fastfetch \
-    tailscale && \
+    tailscale \
+    rtkit \
+    dbus \
+    polkit && \
     dnf autoremove -y && \
     dnf clean all
 
