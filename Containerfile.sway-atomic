@@ -18,6 +18,7 @@ RUN dnf install -y neovim \
     distrobox \
     stow \
     fastfetch \
+    wofi \
     tailscale && \
     dnf autoremove -y && \
     dnf clean all
