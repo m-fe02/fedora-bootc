@@ -5,8 +5,9 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 5 * * *'
-    - cron: '0 17 * * *'
+    - cron: '0 0 * * 6'
+
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   push-store-image:
@@ -28,13 +29,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Build and Push Sway-Atomic Image'
-        run: |
-          podman build -f Containerfile.sway-atomic --tag ghcr.io/m-fe02/fedora-bootc:sway-atomic
-          podman push ghcr.io/m-fe02/fedora-bootc:sway-atomic
-          podman rmi ghcr.io/m-fe02/fedora-bootc:sway-atomic
-          podman system prune -a -f
-
       - name: 'Build and Push Cosmic-Atomic Image'
         run: |
           podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
@@ -47,4 +41,11 @@ jobs:
           podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue
           podman push ghcr.io/m-fe02/fedora-bootc:silverblue
           podman rmi ghcr.io/m-fe02/fedora-bootc:silverblue
+          podman system prune -a -f
+
+      - name: 'Build and Push Kinoite Image'
+        run: |
+          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite
+          podman push ghcr.io/m-fe02/fedora-bootc:kinoite
+          podman rmi ghcr.io/m-fe02/fedora-bootc:kinoite
           podman system prune -a -f
