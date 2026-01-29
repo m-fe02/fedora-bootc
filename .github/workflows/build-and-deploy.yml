@@ -3,7 +3,7 @@ name: Deploy Images to GHCR
 on:
   push:
     branches:
-      - main
+      - gaming-images
   schedule:
     - cron: '0 0 * * 6'
 
@@ -31,21 +31,21 @@ jobs:
 
       - name: 'Build and Push Cosmic-Atomic Image'
         run: |
-          podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
-          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
-          podman rmi ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
+          podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
+          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
+          podman rmi ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
           podman system prune -a -f
 
       - name: 'Build and Push Silverblue Image'
         run: |
-          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue
-          podman push ghcr.io/m-fe02/fedora-bootc:silverblue
-          podman rmi ghcr.io/m-fe02/fedora-bootc:silverblue
+          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
+          podman push ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
+          podman rmi ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
           podman system prune -a -f
 
       - name: 'Build and Push Kinoite Image'
         run: |
-          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite
-          podman push ghcr.io/m-fe02/fedora-bootc:kinoite
-          podman rmi ghcr.io/m-fe02/fedora-bootc:kinoite
+          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
+          podman push ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
+          podman rmi ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
           podman system prune -a -f
