@@ -23,12 +23,18 @@ RUN dnf remove -y \
     gnome-shell-extension-common && \
     dnf clean all
 
+# Install RPM-Fusion Repos
+RUN dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
+    dnf clean all
+
 # Install additional tools and perform cleanup
 RUN dnf install -y neovim \
     adw-gtk3-theme \
     distrobox \
     gnome-tweaks \
     stow \
+    steam \
     fastfetch \
     tailscale && \
     dnf autoremove -y && \
