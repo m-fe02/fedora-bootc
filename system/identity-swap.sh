@@ -14,7 +14,7 @@ for VARIANT in "${VARIANTS[@]}"; do
         
         dnf swap -y \
             "fedora-release-identity-${VARIANT}" "$GENERIC_ID" \
-            --swap "fedora-release-${VARIANT}" "$GENERIC_REL" \
+            "fedora-release-${VARIANT}" "$GENERIC_REL" \
             --allowerasing
         
         dnf clean all
