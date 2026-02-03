@@ -1,0 +1,21 @@
+# --- BOOT & BRANDING ---
+plymouth*
+fedora-logos*
+fedora-release-identity-*
+fedora-backgrounds*
+
+# --- COMMON BLOAT ---
+firefox
+firefox-langpacks
+yelp
+gnome-tour
+gnome-system-monitor
+
+# --- GNOME SPECIFIC (Cleaned safely via wildcards) ---
+gnome-shell-extension-background-logo
+gnome-shell-extension-window-list
+gnome-shell-extension-places-menu
+gnome-shell-extension-launch-new-instance
+gnome-shell-extension-apps-menu
+gnome-shell-extension-common
+gnome-classic-session

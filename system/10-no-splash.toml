@@ -1,0 +1,2 @@
+# /usr/lib/bootc/kargs.d/10-no-splash.toml
+kargs = ["plymouth.enable=0", "rd.udev.log_level=3"]
