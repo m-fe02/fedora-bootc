@@ -10,10 +10,12 @@ GENERIC_REL="generic-release"
 
 for VARIANT in "${VARIANTS[@]}"; do
     if rpm -q "fedora-release-identity-${VARIANT}" > /dev/null 2>&1; then
-        echo "Detected ${VARIANT}. Swapping identity..."
+        echo "Detected ${VARIANT}. Performing Atomic Swap..."
         
-        dnf swap -y "fedora-release-identity-${VARIANT}" "$GENERIC_ID"
-        dnf swap -y "fedora-release-${VARIANT}" "$GENERIC_REL" --allowerasing
+        dnf swap -y \
+            "fedora-release-identity-${VARIANT}" "$GENERIC_ID" \
+            --swap "fedora-release-${VARIANT}" "$GENERIC_REL" \
+            --allowerasing
         
         dnf clean all
         echo "Swap complete for ${VARIANT}."
