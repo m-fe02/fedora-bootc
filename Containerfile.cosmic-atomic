@@ -4,7 +4,7 @@ FROM quay.io/fedora-ostree-desktops/cosmic-atomic:${FEDORA_MAJOR_VERSION}
 
 # Upgrade all packages to their latest versions
 RUN dnf upgrade -y && \
-    curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo && /
+    curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo && \
     dnf clean all
 
 # Remove unwanted packages
