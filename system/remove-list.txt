@@ -1,7 +1,6 @@
 # --- BOOT & BRANDING ---
 plymouth*
 fedora-logos*
-fedora-release-identity-*
 fedora-backgrounds*
 
 # --- COMMON BLOAT ---

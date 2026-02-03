@@ -7,6 +7,12 @@ RUN dnf upgrade -y && \
     curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo && \
     dnf clean all
 
+# Change OS-Identity
+COPY ./system/identity-swap.sh /tmp/identity-swap.sh
+RUN chmod +x /tmp/identity-swap.sh && \
+    /tmp/identity-swap.sh && \
+    rm /tmp/identity-swap.sh
+
 # Remove unwanted packages
 COPY ./system/remove-list.txt /tmp/remove-list.txt
 RUN dnf remove -y $(grep -v '^#' /tmp/remove-list.txt | xargs) || true && \
