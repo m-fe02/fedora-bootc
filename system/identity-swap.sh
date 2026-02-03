@@ -3,7 +3,6 @@ set -e
 
 echo "Detecting Atomic Variant..."
 
-# Define the possible identity packages
 VARIANTS=("cosmic-atomic" "kinoite" "silverblue")
 GENERIC_ID="generic-release-identity"
 GENERIC_REL="generic-release"
@@ -12,9 +11,12 @@ for VARIANT in "${VARIANTS[@]}"; do
     if rpm -q "fedora-release-identity-${VARIANT}" > /dev/null 2>&1; then
         echo "Detected ${VARIANT}. Performing Atomic Swap..."
         
-        dnf swap -y \
-            "fedora-release-identity-${VARIANT}" "$GENERIC_ID" \
-            "fedora-release-${VARIANT}" "$GENERIC_REL" \
+        # In DNF5, the most robust 'multiple swap' is an install command 
+        # with --allowerasing. It treats the arrival of 'generic' 
+        # as the cue to erase the 'fedora' equivalents.
+        dnf -y install \
+            "$GENERIC_ID" \
+            "$GENERIC_REL" \
             --allowerasing
         
         dnf clean all
