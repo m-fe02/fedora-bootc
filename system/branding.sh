@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-# 1 Create logo file
 echo "Applying Hackpad OS Branding..."
 
-mkdir -p /usr/share/fastfetch/logos
-cat <<'EOF' > /usr/share/fastfetch/logos/hackpad
+# 1. Create the logo in a standard system data path
+mkdir -p /usr/share/hackpad
+cat <<'EOF' > /usr/share/hackpad/ascii
                   _                    _
   /\  /\__ _  ___| | ___ __   __ _  __| |
  / /_/ / _` |/ __| |/ / '_ \ / _` |/ _` |
@@ -14,7 +14,20 @@ cat <<'EOF' > /usr/share/fastfetch/logos/hackpad
                       |_|
 EOF
 
-# 2. Generate /etc/os-release
+# 2. Create the SYSTEM-WIDE Fastfetch config
+# Fastfetch ALWAYS checks /etc/fastfetch/config.jsonc before its internal database
+mkdir -p /etc/fastfetch
+cat <<EOF > /etc/fastfetch/config.jsonc
+{
+    "\$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.jsonc",
+    "logo": {
+        "source": "/usr/share/hackpad/ascii",
+        "type": "file"
+    }
+}
+EOF
+
+# 3. Generate /etc/os-release
 cat <<EOF > /usr/lib/os-release
 NAME="Hackpad OS"
 VERSION="43"
@@ -31,16 +44,15 @@ BUILD_ID=$(date +%Y%m%d)
 LOGO="hackpad"
 EOF
 
-# 3. Generate /etc/issue and /etc/issue.net
+# 4. Generate /etc/issue and /etc/issue.net
 {
-    cat /usr/share/fastfetch/logos/hackpad
+    cat /usr/share/hackpad/ascii
     echo ""
     echo "This is YOUR Hackpad (\l)"
     echo "Kernel \r"
     echo ""
 } > /etc/issue
 
-# Use the same file for remote logins
 cp /etc/issue /etc/issue.net
 
-echo "Identity branding complete."
+echo "Identity branding complete. System-wide fastfetch config applied."
