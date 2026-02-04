@@ -38,6 +38,12 @@ RUN chmod +x /tmp/branding.sh && \
     /tmp/branding.sh && \
     rm /tmp/branding.sh
 
+COPY ./system/fastfetch-setup.sh /tmp/fastfetch-setup.sh
+
+RUN chmod +x /tmp/fastfetch-setup.sh && \
+    /tmp/fastfetch-setup.sh && \
+    rm /tmp/fastfetch-setup.sh
+
 # Arguments to remove Plymouth splash screen on boot
 COPY ./system/10-no-splash.toml /tmp/10-no-splash.toml
 
