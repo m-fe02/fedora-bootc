@@ -25,7 +25,7 @@ ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:hackpad:hackpad:43"
 HOME_URL="https://github.com/m-fe02/fedora-bootc"
 VARIANT="Custom BootC Image"
-VARIANT_ID="Bootable Container Image"
+VARIANT_ID="bootc"
 BUILD_ID=$(date +%Y%m%d)
 LOGO="/etc/logo.txt"
 EOF
