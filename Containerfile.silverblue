@@ -2,37 +2,40 @@ ARG FEDORA_MAJOR_VERSION=43
 
 FROM quay.io/fedora-ostree-desktops/silverblue:${FEDORA_MAJOR_VERSION}
 
-# Upgrade all packages to their latest versions
+# Upgrade all packages to their latest versions and add Tailscale repo
 RUN dnf upgrade -y && \
+    curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo && \
     dnf clean all
 
-RUN curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+# Change OS-Identity
+COPY ./system/identity-swap.sh /tmp/identity-swap.sh
 
-# Remove Firefox and its dependencies
-RUN dnf remove -y \
-    firefox \
-    firefox-langpacks \
-    gnome-tour \
-    yelp \
-    gnome-shell-extension-background-logo \
-    gnome-shell-extension-window-list \
-    gnome-classic-session \
-    gnome-shell-extension-places-menu \
-    gnome-shell-extension-launch-new-instance \
-    gnome-shell-extension-apps-menu \
-    gnome-shell-extension-common && \
-    dnf clean all
+RUN chmod +x /tmp/identity-swap.sh && \
+    /tmp/identity-swap.sh && \
+    rm /tmp/identity-swap.sh
+
+# Remove unwanted packages
+COPY ./system/remove-list.txt /tmp/remove-list.txt
+
+RUN dnf remove -y $(grep -v '^#' /tmp/remove-list.txt | xargs) || true && \
+    dnf clean all && \
+    rm /tmp/remove-list.txt
 
 # Install additional tools and perform cleanup
-RUN dnf install -y neovim \
-    adw-gtk3-theme \
-    distrobox \
-    gnome-tweaks \
-    stow \
-    fastfetch \
-    tailscale && \
-    dnf autoremove -y && \
-    dnf clean all
+COPY ./system/common-install.txt /tmp/common-install.txt
+COPY ./system/silverblue.txt /tmp/silverblue.txt
+
+RUN dnf install -y \
+    $(grep -v '^#' /tmp/common-install.txt) \
+    $(grep -v '^#' /tmp/silverblue.txt) && \
+    dnf clean all && \
+    rm /tmp/common-install.txt /tmp/silverblue.txt
+
+# Arguments to remove Plymouth splash screen on boot
+COPY ./system/10-no-splash.toml /tmp/10-no-splash.toml
+
+RUN mkdir -p /usr/lib/bootc/kargs.d && \
+    mv /tmp/10-no-splash.toml /usr/lib/bootc/kargs.d/10-no-splash.toml
 
 # Enable bootc automatic update timer
 # RUN systemctl enable bootc-fetch-apply-updates.timer
