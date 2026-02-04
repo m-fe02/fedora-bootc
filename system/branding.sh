@@ -4,7 +4,7 @@ set -e
 echo "Applying Hackpad OS Branding..."
 
 # 1. Generate /etc/os-release
-cat <<EOF > /etc/os-release
+cat <<EOF > /usr/lib/os-release
 NAME="Hackpad OS"
 VERSION="43"
 ID=hackpad
@@ -17,9 +17,6 @@ HOME_URL="https://github.com/m-fe02/fedora-bootc"
 VARIANT="Developer"
 BUILD_ID=$(date +%Y%m%d)
 EOF
-
-# Sync to /usr/lib for system tool compatibility
-ln -sf /etc/os-release /usr/lib/os-release
 
 # 2. Generate /etc/issue and /etc/issue.net
 cat <<'EOF' > /etc/issue
