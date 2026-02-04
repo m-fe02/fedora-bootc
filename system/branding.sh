@@ -3,6 +3,16 @@ set -e
 
 echo "Applying Hackpad OS Branding..."
 
+ASCII_ART='
+                  _                     _
+  /\  /\__ _  ___| | ___ __   __ _  __| |
+ / /_/ / _` |/ __| |/ / '_ \ / _` |/ _` |
+/ __  / (_| | (__|   <| |_) | (_| | (_| |
+\/ /_/ \__,_|\___|_|\_\ .__/ \__,_|\__,_|
+                      |_|'
+
+echo "$ASCII_ART" > /etc/logo.txt
+
 # 1. Generate /etc/os-release
 cat <<EOF > /usr/lib/os-release
 NAME="Hackpad OS"
@@ -16,16 +26,12 @@ CPE_NAME="cpe:/o:hackpad:hackpad:43"
 HOME_URL="https://github.com/m-fe02/fedora-bootc"
 VARIANT="Developer"
 BUILD_ID=$(date +%Y%m%d)
+LOGO="/etc/logo.txt"
 EOF
 
 # 2. Generate /etc/issue and /etc/issue.net
 cat <<'EOF' > /etc/issue
-                  _                     _
-  /\  /\__ _  ___| | ___ __   __ _  __| |
- / /_/ / _` |/ __| |/ / '_ \ / _` |/ _` |
-/ __  / (_| | (__|   <| |_) | (_| | (_| |
-\/ /_/ \__,_|\___|_|\_\ .__/ \__,_|\__,_|
-                      |_|
+$ASCII_ART
 
 This is YOUR Hackpad (\l)
 Kernel \r
