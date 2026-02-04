@@ -31,6 +31,13 @@ RUN dnf install -y \
     dnf clean all && \
     rm /tmp/common-install.txt /tmp/silverblue.txt
 
+# Apply Custom Identity and Branding
+COPY ./system/branding.sh /tmp/branding.sh
+
+RUN chmod +x /tmp/branding.sh && \
+    /tmp/branding.sh && \
+    rm /tmp/branding.sh
+
 # Arguments to remove Plymouth splash screen on boot
 COPY ./system/10-no-splash.toml /tmp/10-no-splash.toml
 
