@@ -4,8 +4,9 @@ set -e
 # 1 Create logo file
 echo "Applying Hackpad OS Branding..."
 
-cat <<'EOF' > /etc/logo.txt
-                  _                     _
+mkdir -p /usr/share/fastfetch/logos
+cat <<'EOF' > /usr/share/fastfetch/logos/hackpad
+                  _                    _
   /\  /\__ _  ___| | ___ __   __ _  __| |
  / /_/ / _` |/ __| |/ / '_ \ / _` |/ _` |
 / __  / (_| | (__|   <| |_) | (_| | (_| |
@@ -27,12 +28,12 @@ HOME_URL="https://github.com/m-fe02/fedora-bootc"
 VARIANT="Custom BootC Image"
 VARIANT_ID="bootc"
 BUILD_ID=$(date +%Y%m%d)
-LOGO="/etc/logo.txt"
+LOGO="hackpad"
 EOF
 
 # 3. Generate /etc/issue and /etc/issue.net
 {
-    cat /etc/logo.txt
+    cat /usr/share/fastfetch/logos/hackpad
     echo ""
     echo "This is YOUR Hackpad (\l)"
     echo "Kernel \r"
