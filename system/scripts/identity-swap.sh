@@ -11,21 +11,19 @@ for VARIANT in "${VARIANTS[@]}"; do
     if rpm -q "fedora-release-identity-${VARIANT}" > /dev/null 2>&1; then
         echo "Detected ${VARIANT}. Performing Atomic Swap..."
 
-        # 1. Perform the swap
-        dnf -y install "$GENERIC_ID" "$GENERIC_REL" --allowerasing
+        # Swap COSMIC/Spin identity for Generic Fedora identity
+        dnf -y install \
+            "$GENERIC_ID" \
+            "$GENERIC_REL" \
+            --allowerasing
 
-        # 2. Check for purged assets (The 'Total 0' scenario)
-        for KDIR in /usr/lib/modules/*; do
-            if [ -d "$KDIR" ] && [ ! -f "$KDIR/vmlinuz" ]; then
-                KVER=$(basename "$KDIR")
-                echo "Critical: Boot assets missing for $KVER. Restoring..."
-                
-                # Reinstalling kernel-core triggers the scriptlets that:
-                # - Restore vmlinuz
-                # - Run dracut to build initramfs
-                dnf -y install "kernel-core-$KVER"
-            fi
-        done
+        # Explicitly install kernel packages to trigger dracut and restore vmlinuz
+        # This prevents the 'Total 0' empty module directory and VFS boot panic
+        echo "Re-securing kernel assets..."
+        dnf -y install kernel kernel-core kernel-modules kernel-modules-extra
+
+        # Remove empty module directories left behind by the identity swap cleanup
+        find /usr/lib/modules/ -mindepth 1 -maxdepth 1 -type d -empty -delete
 
         dnf clean all
         echo "Swap complete for ${VARIANT}."
