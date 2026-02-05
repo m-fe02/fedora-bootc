@@ -23,7 +23,7 @@ for VARIANT in "${VARIANTS[@]}"; do
                 # Reinstalling kernel-core triggers the scriptlets that:
                 # - Restore vmlinuz
                 # - Run dracut to build initramfs
-                dnf -y reinstall "kernel-core-$KVER"
+                dnf -y install "kernel-core-$KVER"
             fi
         done
 
