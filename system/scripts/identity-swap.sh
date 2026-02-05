@@ -20,7 +20,10 @@ for VARIANT in "${VARIANTS[@]}"; do
         # Explicitly install kernel packages to trigger dracut and restore vmlinuz
         # This prevents the 'Total 0' empty module directory and VFS boot panic
         echo "Re-securing kernel assets..."
-        dnf -y install kernel kernel-core kernel-modules kernel-modules-extra
+
+	# Get the versions currently in the database to avoid 'already installed' skips
+        INSTALLED_KERNELS=$(rpm -q kernel-core --queryformat '%{VERSION}-%{RELEASE}.%{ARCH} ')
+	dnf -y reinstall $INSTALLED_KERNELS
 
         # Remove empty module directories left behind by the identity swap cleanup
         find /usr/lib/modules/ -mindepth 1 -maxdepth 1 -type d -empty -delete
