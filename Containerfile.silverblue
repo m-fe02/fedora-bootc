@@ -34,12 +34,6 @@ RUN chmod +x /tmp/fastfetch-setup.sh && \
     /tmp/fastfetch-setup.sh && \
     rm /tmp/fastfetch-setup.sh
 
-# Arguments to remove Plymouth splash screen on boot
-COPY ./system/args/10-no-splash.toml /tmp/10-no-splash.toml
-
-RUN mkdir -p /usr/lib/bootc/kargs.d && \
-    mv /tmp/10-no-splash.toml /usr/lib/bootc/kargs.d/10-no-splash.toml
-
 # Enable bootc automatic update timer
 # RUN systemctl enable bootc-fetch-apply-updates.timer
 
