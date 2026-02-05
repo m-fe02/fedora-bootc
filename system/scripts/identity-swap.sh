@@ -10,15 +10,23 @@ GENERIC_REL="generic-release"
 for VARIANT in "${VARIANTS[@]}"; do
     if rpm -q "fedora-release-identity-${VARIANT}" > /dev/null 2>&1; then
         echo "Detected ${VARIANT}. Performing Atomic Swap..."
-        
-        # In DNF5, the most robust 'multiple swap' is an install command 
-        # with --allowerasing. It treats the arrival of 'generic' 
-        # as the cue to erase the 'fedora' equivalents.
-        dnf -y install \
-            "$GENERIC_ID" \
-            "$GENERIC_REL" \
-            --allowerasing
-        
+
+        # 1. Perform the swap
+        dnf -y install "$GENERIC_ID" "$GENERIC_REL" --allowerasing
+
+        # 2. Check for purged assets (The 'Total 0' scenario)
+        for KDIR in /usr/lib/modules/*; do
+            if [ -d "$KDIR" ] && [ ! -f "$KDIR/vmlinuz" ]; then
+                KVER=$(basename "$KDIR")
+                echo "Critical: Boot assets missing for $KVER. Restoring..."
+                
+                # Reinstalling kernel-core triggers the scriptlets that:
+                # - Restore vmlinuz
+                # - Run dracut to build initramfs
+                dnf -y reinstall "kernel-core-$KVER"
+            fi
+        done
+
         dnf clean all
         echo "Swap complete for ${VARIANT}."
         exit 0
