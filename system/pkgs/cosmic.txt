@@ -1,0 +1,9 @@
+# Core CLI Tools
+ark
+neovim
+distrobox
+stow
+fastfetch
+
+# Networking & System
+tailscale

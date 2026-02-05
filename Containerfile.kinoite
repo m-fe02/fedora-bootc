@@ -8,41 +8,41 @@ RUN dnf upgrade -y && \
     dnf clean all
 
 # Change OS-Identity
-COPY ./system/identity-swap.sh /tmp/identity-swap.sh
+COPY ./system/scripts/identity-swap.sh /tmp/identity-swap.sh
 
 RUN chmod +x /tmp/identity-swap.sh && \
     /tmp/identity-swap.sh && \
     rm /tmp/identity-swap.sh
 
 # Remove unwanted packages
-COPY ./system/remove-list.txt /tmp/remove-list.txt
+COPY ./system/pkgs/remove.txt /tmp/remove.txt
 
-RUN dnf remove -y $(grep -v '^#' /tmp/remove-list.txt | xargs) || true && \
+RUN dnf remove -y $(grep -v '^#' /tmp/remove.txt | xargs) || true && \
     dnf clean all && \
-    rm /tmp/remove-list.txt
+    rm /tmp/remove.txt
 
 # Install additional tools and perform cleanup
-COPY ./system/common-install.txt /tmp/common-install.txt
+COPY ./system/pkgs/kde.txt /tmp/kde.txt
 
-RUN dnf install -y $(grep -v '^#' /tmp/common-install.txt | xargs) && \
+RUN dnf install -y $(grep -v '^#' /tmp/kde.txt | xargs) && \
     dnf clean all && \
-    rm /tmp/common-install.txt
+    rm /tmp/kde.txt
 
 # Apply Custom Identity and Branding
-COPY ./system/branding.sh /tmp/branding.sh
+COPY ./system/scripts/branding.sh /tmp/branding.sh
 
 RUN chmod +x /tmp/branding.sh && \
     /tmp/branding.sh && \
     rm /tmp/branding.sh
 
-COPY ./system/fastfetch-setup.sh /tmp/fastfetch-setup.sh
+COPY ./system/scripts/fastfetch-setup.sh /tmp/fastfetch-setup.sh
 
 RUN chmod +x /tmp/fastfetch-setup.sh && \
     /tmp/fastfetch-setup.sh && \
     rm /tmp/fastfetch-setup.sh
 
 # Arguments to remove Plymouth splash screen on boot
-COPY ./system/10-no-splash.toml /tmp/10-no-splash.toml
+COPY ./system/args/10-no-splash.toml /tmp/10-no-splash.toml
 
 RUN mkdir -p /usr/lib/bootc/kargs.d && \
     mv /tmp/10-no-splash.toml /usr/lib/bootc/kargs.d/10-no-splash.toml
