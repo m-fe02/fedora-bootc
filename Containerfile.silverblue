@@ -15,7 +15,7 @@ RUN chmod +x /tmp/identity-swap.sh && \
     rm /tmp/identity-swap.sh
 
 # Remove unwanted packages
-COPY ./system/remove.txt /tmp/remove.txt
+COPY ./system/pkgs/remove.txt /tmp/remove.txt
 
 RUN dnf remove -y $(grep -v '^#' /tmp/remove.txt | xargs) || true && \
     dnf clean all && \
