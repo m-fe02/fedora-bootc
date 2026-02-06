@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -xe
 
 echo "Applying Hackpad OS Branding..."
 
@@ -22,8 +22,9 @@ EOF
 
 # 2. Regenerate initramfs for boot logo
 KVER=$(ls /usr/lib/modules | head -n 1)
-echo "Regenerating generic initramfs for kernel $KVER..."
-KVER=$(ls /lib/modules | head -n 1)
-dracut --force --add "systemd-cryptsetup plymouth" --kver "$KVER" /usr/lib/modules/$KVER/initramfs.img
+env DRACUT_NO_XATTR=1 dracut -vf "/usr/lib/modules/$kver/initramfs.img" \
+    --kver "$kver" \
+    --no-hostonly \
+    --add "systemd-cryptsetup plymouth"
 
 echo "Branding complete."
