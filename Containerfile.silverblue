@@ -28,7 +28,10 @@ COPY ./system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.tom
 COPY cosign.pub /etc/pki/containers/cosign.pub
 COPY system/policy.json /etc/containers/policy.json
 COPY system/cosign.yaml /etc/containers/registries.d/cosign.yaml
+
+# Script to run after first boot
 COPY system/scripts/seal-os.sh /usr/bin/seal-os
+RUN chmod +x /usr/bin/seal-os
 
 # Apply Custom Identity and Branding
 COPY ./system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
