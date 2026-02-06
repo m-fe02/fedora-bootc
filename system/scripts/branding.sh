@@ -22,6 +22,8 @@ EOF
 
 # 2. Regenerate initramfs for boot logo
 KVER=$(ls /usr/lib/modules | head -n 1)
-env DRACUT_NO_XATTR=1 dracut -vf "/usr/lib/modules/$KVER/initramfs.img" --kver "$KVER"
+echo "Regenerating generic initramfs for kernel $KVER..."
+KVER=$(ls /lib/modules | head -n 1)
+dracut --force --add "systemd-cryptsetup plymouth" --kver "$KVER" /usr/lib/modules/$KVER/initramfs.img
 
 echo "Branding complete."
