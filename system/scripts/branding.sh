@@ -4,7 +4,6 @@ set -e
 echo "Applying Hackpad OS Branding..."
 
 # 1. Generate /usr/lib/os-release
-# This is the core identity file that COSMIC and other system tools read.
 cat <<EOF > /usr/lib/os-release
 NAME="Hackpad OS"
 VERSION="43"
@@ -21,4 +20,8 @@ BUILD_ID=$(date +%Y%m%d)
 LOGO="hackpad"
 EOF
 
-echo "Identity branding complete."
+# 2. Regenerate initramfs for boot logo
+KVER=$(ls /usr/lib/modules | head -n 1)
+env DRACUT_NO_XATTR=1 dracut -vf "/usr/lib/modules/$KVER/initramfs.img" --kver "$KVER"
+
+echo "Branding complete."

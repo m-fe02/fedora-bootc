@@ -22,6 +22,7 @@ RUN dnf install -y $(grep -v '^#' /tmp/gnome.txt | xargs) && \
     rm /tmp/gnome.txt
 
 # Apply Custom Identity and Branding
+COPY ./system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 COPY ./system/scripts/branding.sh /tmp/branding.sh
 
 RUN chmod +x /tmp/branding.sh && \
