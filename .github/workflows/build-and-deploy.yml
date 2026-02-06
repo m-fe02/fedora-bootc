@@ -42,6 +42,7 @@ jobs:
         run: |
           podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
           podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
+          podman system prune -a -f
 
       - name: 'Sign Cosmic-Atomic Image'
         env:
@@ -54,6 +55,7 @@ jobs:
         run: |
           podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
           podman push ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
+          podman system prune -a -f
 
       - name: 'Sign Silverblue Image'
         env:
@@ -66,13 +68,10 @@ jobs:
         run: |
           podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
           podman push ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
+          podman system prune -a -f
 
       - name: 'Sign Kinoite Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
           cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
-
-      # Cleanup at the end
-      - name: 'Cleanup'
-        run: podman system prune -a -f
