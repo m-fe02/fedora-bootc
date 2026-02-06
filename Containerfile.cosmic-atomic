@@ -21,6 +21,9 @@ RUN dnf install -y $(grep -v '^#' /tmp/cosmic.txt | xargs) && \
     dnf clean all && \
     rm /tmp/cosmic.txt
 
+# Apply karg for silent boot
+COPY ./system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
+
 # Apply Custom Identity and Branding
 COPY ./system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 COPY ./system/scripts/branding.sh /tmp/branding.sh
