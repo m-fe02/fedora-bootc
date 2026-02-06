@@ -1,10 +1,10 @@
-#!/bin/bash
-set -xe
+#!/usr/bin/bash
+set -eoux pipefail
 
 echo "Applying Hackpad OS Branding..."
 
-# 1. Generate /usr/lib/os-release
-cat <<EOF > /usr/lib/os-release
+# 1. Identity Update
+cat <<EOF > /etc/os-release
 NAME="Hackpad OS"
 VERSION="43"
 ID=hackpad
@@ -20,11 +20,16 @@ BUILD_ID=$(date +%Y%m%d)
 LOGO="hackpad"
 EOF
 
-# 2. Regenerate initramfs for boot logo
-KVER=$(ls /usr/lib/modules | head -n 1)
-env DRACUT_NO_XATTR=1 dracut -vf "/usr/lib/modules/$KVER/initramfs.img" \
-    --kver "$KVER" \
-    --no-hostonly \
-    --add "systemd-cryptsetup plymouth"
+# 2. Try UBlue's strategy
+KERNEL_VERSION="$(rpm -q --queryformat="%{evr}.%{arch}" kernel-core)"
+export DRACUT_NO_XATTR=1
 
-echo "Branding complete."
+# We only add 'ostree' because we trust the base image for the rest.
+/usr/bin/dracut --no-hostonly \
+    --kver "${KERNEL_VERSION}" \
+    --reproducible \
+    -v \
+    --add ostree \
+    -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
+
+chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
