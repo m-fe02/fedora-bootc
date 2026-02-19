@@ -1,3 +1,10 @@
 # Gnome specific packages
 adw-gtk3-theme
 gnome-tweaks
+
+# General Tools
+neovim
+distrobox
+stow
+fastfetch
+tailscale
