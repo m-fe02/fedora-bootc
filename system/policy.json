@@ -1,8 +1,6 @@
 {
     "default": [
-        {
-            "type": "insecureAcceptAnything"
-        }
+        { "type": "reject" }
     ],
     "transports": {
         "docker": {
@@ -10,11 +8,15 @@
                 {
                     "type": "sigstoreSigned",
                     "keyPath": "/etc/pki/containers/cosign.pub",
-                    "signedIdentity": {
-                        "type": "matchRepository"
-                    }
+                    "signedIdentity": { "type": "matchRepository" }
                 }
-            ]
+            ],
+            "quay.io": [{ "type": "insecureAcceptAnything" }],
+            "docker.io": [{ "type": "insecureAcceptAnything" }],
+            "ghcr.io": [{ "type": "insecureAcceptAnything" }]
+        },
+        "docker-daemon": {
+            "": [{ "type": "insecureAcceptAnything" }]
         }
     }
 }
