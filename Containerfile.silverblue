@@ -52,3 +52,5 @@ RUN chmod +x /tmp/fastfetch-setup.sh && \
 
 # Set the default target to graphical
 RUN systemctl set-default graphical.target
+
+RUN bootc container lint
