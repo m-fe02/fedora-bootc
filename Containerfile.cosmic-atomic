@@ -46,7 +46,7 @@ RUN rm -rf /opt && ln -s /var/opt /opt
 
 # Final metadata clean
 RUN rm -rf /var/log/dnf5.log \
-           /var/lib/dnf/repos/ \
+           /var/lib/dnf \
            /var/cache/ldconfig/aux-cache \
            /var/cache/tailscale/
 
