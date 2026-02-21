@@ -2,35 +2,35 @@ ARG FEDORA_MAJOR_VERSION=43
 
 FROM quay.io/fedora-ostree-desktops/cosmic-atomic:${FEDORA_MAJOR_VERSION}
 
-# 1. Upgrade and add Tailscale with cache mounts
+# Upgrade and add Tailscale with cache mounts
 # We use a cache mount for libdnf5 so metadata isn't baked into the layer
 RUN --mount=type=cache,dst=/var/cache/libdnf5 \
     dnf upgrade -y --exclude=kernel* && \
     curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-# 2. Remove unwanted packages
+# Remove unwanted packages
 COPY ./system/pkgs/remove.txt /tmp/remove.txt
 RUN --mount=type=cache,dst=/var/cache/libdnf5 \
     dnf remove -y $(grep -v '^#' /tmp/remove.txt | xargs) || true && \
     rm /tmp/remove.txt
 
-# 3. Install customizations
+# Install customizations
 COPY ./system/pkgs/cosmic.txt /tmp/cosmic.txt
 RUN --mount=type=cache,dst=/var/cache/libdnf5 \
     dnf install -y $(grep -v '^#' /tmp/cosmic.txt | xargs) && \
     rm /tmp/cosmic.txt
 
-# 4. Apply Kernel Arguments (Silent Boot)
+# Apply Kernel Arguments (Silent Boot)
 COPY ./system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
 
-# 5. Security and Signing Policy
+# Security and Signing Policy
 # Note: policy.json is placed in /etc for the build, 
 # but your seal-os script will handle the /usr/etc sync later.
 COPY cosign.pub /etc/pki/containers/cosign.pub
 COPY system/policy.json /etc/containers/policy.json
 COPY system/cosign.yaml /etc/containers/registries.d/cosign.yaml
 
-# 6. Scripts and Branding
+# Scripts and Branding
 COPY system/scripts/seal-os.sh /usr/bin/seal-os
 RUN chmod +x /usr/bin/seal-os
 
@@ -41,16 +41,20 @@ RUN chmod +x /tmp/branding.sh && /tmp/branding.sh && rm /tmp/branding.sh
 COPY ./system/scripts/fastfetch-setup.sh /tmp/fastfetch-setup.sh
 RUN chmod +x /tmp/fastfetch-setup.sh && /tmp/fastfetch-setup.sh && rm /tmp/fastfetch-setup.sh
 
-# 7. UBlue-style Compatibility Fixes
 # Makes /opt usable for 3rd party apps on an immutable host
 RUN rm -rf /opt && ln -s /var/opt /opt
 
-# 8. Final System State
+# Final metadata clean
+RUN rm -rf /var/log/dnf5.log \
+           /var/lib/dnf/repos/ \
+           /var/cache/ldconfig/aux-cache \
+           /var/cache/tailscale/
+
+# Final System State
 RUN systemctl set-default graphical.target
 
 # Explicitly set the init process (Standard for bootable containers)
 CMD ["/sbin/init"]
 
-# 9. The Gatekeeper
-# This should now run with 0 warnings thanks to the cache mounts!
+# Container linting
 RUN bootc container lint
