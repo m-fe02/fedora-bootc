@@ -1,56 +1,22 @@
 ARG FEDORA_MAJOR_VERSION=43
+FROM scratch AS ctx
+COPY build_files/ /
+COPY system/ /system/
+COPY cosign.pub /
 
 FROM quay.io/fedora-ostree-desktops/silverblue:${FEDORA_MAJOR_VERSION}
+ARG DESKTOP_ENV=gnome
 
-# Upgrade all packages to their latest versions and add Tailscale repo
-RUN dnf upgrade -y --exclude=kernel* && \
-    curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo && \
-    dnf clean all
+RUN --mount=type=bind,from=ctx,src=/,dst=/ctx \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    DESKTOP_ENV=${DESKTOP_ENV} /ctx/install.sh && \
+    /ctx/post-install.sh
 
-# Remove unwanted packages
-COPY ./system/pkgs/remove.txt /tmp/remove.txt
+RUN rm -rf /opt && ln -s /var/opt /opt && \
+    systemctl set-default graphical.target
 
-RUN dnf remove -y $(grep -v '^#' /tmp/remove.txt | xargs) || true && \
-    dnf clean all && \
-    rm /tmp/remove.txt
+CMD ["/sbin/init"]
 
-# Install additional tools and perform cleanup
-COPY ./system/pkgs/gnome.txt /tmp/gnome.txt
-
-RUN dnf install -y $(grep -v '^#' /tmp/gnome.txt | xargs) && \
-    dnf clean all && \
-    rm /tmp/gnome.txt
-
-# Apply karg for silent boot
-COPY ./system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
-
-# Security and Signing Policy
-COPY cosign.pub /etc/pki/containers/cosign.pub
-COPY system/policy.json /etc/containers/policy.json
-COPY system/cosign.yaml /etc/containers/registries.d/cosign.yaml
-
-# Script to run after first boot
-COPY system/scripts/seal-os.sh /usr/bin/seal-os
-RUN chmod +x /usr/bin/seal-os
-
-# Apply Custom Identity and Branding
-COPY ./system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
-COPY ./system/scripts/branding.sh /tmp/branding.sh
-
-RUN chmod +x /tmp/branding.sh && \
-    /tmp/branding.sh && \
-    rm /tmp/branding.sh
-
-COPY ./system/scripts/fastfetch-setup.sh /tmp/fastfetch-setup.sh
-
-RUN chmod +x /tmp/fastfetch-setup.sh && \
-    /tmp/fastfetch-setup.sh && \
-    rm /tmp/fastfetch-setup.sh
-
-# Enable bootc automatic update timer
-# RUN systemctl enable bootc-fetch-apply-updates.timer
-
-# Set the default target to graphical
-RUN systemctl set-default graphical.target
-
-RUN bootc container lint
+RUN ["bootc", "container", "lint"]

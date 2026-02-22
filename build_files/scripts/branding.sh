@@ -3,7 +3,7 @@ set -eoux pipefail
 
 echo "Applying Hackpad OS Branding..."
 
-# 1. Identity Update
+# Identity Update
 cat <<EOF > /etc/os-release
 NAME="Hackpad OS"
 VERSION="43"
@@ -20,7 +20,7 @@ BUILD_ID=$(date +%Y%m%d)
 LOGO="hackpad"
 EOF
 
-# 2. Try UBlue's strategy
+# Rebuild Initramfs
 KERNEL_VERSION="$(rpm -q --queryformat="%{evr}.%{arch}" kernel-core)"
 export DRACUT_NO_XATTR=1
 

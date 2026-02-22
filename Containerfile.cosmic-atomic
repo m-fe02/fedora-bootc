@@ -1,60 +1,22 @@
 ARG FEDORA_MAJOR_VERSION=43
+FROM scratch AS ctx
+COPY build_files/ /
+COPY system/ /system/
+COPY cosign.pub /
 
 FROM quay.io/fedora-ostree-desktops/cosmic-atomic:${FEDORA_MAJOR_VERSION}
+ARG DESKTOP_ENV=cosmic
 
-# Upgrade and add Tailscale with cache mounts
-# We use a cache mount for libdnf5 so metadata isn't baked into the layer
-RUN --mount=type=cache,dst=/var/cache/libdnf5 \
-    dnf upgrade -y --exclude=kernel* && \
-    curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+RUN --mount=type=bind,from=ctx,src=/,dst=/ctx \
+    --mount=type=cache,target=/var/cache \
+    --mount=type=cache,target=/var/log \
+    --mount=type=tmpfs,target=/tmp \
+    DESKTOP_ENV=${DESKTOP_ENV} /ctx/install.sh && \
+    /ctx/post-install.sh
 
-# Remove unwanted packages
-COPY ./system/pkgs/remove.txt /tmp/remove.txt
-RUN --mount=type=cache,dst=/var/cache/libdnf5 \
-    dnf remove -y $(grep -v '^#' /tmp/remove.txt | xargs) || true && \
-    rm /tmp/remove.txt
+RUN rm -rf /opt && ln -s /var/opt /opt && \
+    systemctl set-default graphical.target
 
-# Install customizations
-COPY ./system/pkgs/cosmic.txt /tmp/cosmic.txt
-RUN --mount=type=cache,dst=/var/cache/libdnf5 \
-    dnf install -y $(grep -v '^#' /tmp/cosmic.txt | xargs) && \
-    rm /tmp/cosmic.txt
-
-# Apply Kernel Arguments (Silent Boot)
-COPY ./system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
-
-# Security and Signing Policy
-# Note: policy.json is placed in /etc for the build, 
-# but your seal-os script will handle the /usr/etc sync later.
-COPY cosign.pub /etc/pki/containers/cosign.pub
-COPY system/policy.json /etc/containers/policy.json
-COPY system/cosign.yaml /etc/containers/registries.d/cosign.yaml
-
-# Scripts and Branding
-COPY system/scripts/seal-os.sh /usr/bin/seal-os
-RUN chmod +x /usr/bin/seal-os
-
-COPY ./system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
-COPY ./system/scripts/branding.sh /tmp/branding.sh
-RUN chmod +x /tmp/branding.sh && /tmp/branding.sh && rm /tmp/branding.sh
-
-COPY ./system/scripts/fastfetch-setup.sh /tmp/fastfetch-setup.sh
-RUN chmod +x /tmp/fastfetch-setup.sh && /tmp/fastfetch-setup.sh && rm /tmp/fastfetch-setup.sh
-
-# Makes /opt usable for 3rd party apps on an immutable host
-RUN rm -rf /opt && ln -s /var/opt /opt
-
-# Final metadata clean
-RUN rm -rf /var/log/dnf5.log \
-           /var/lib/dnf \
-           /var/cache/ldconfig/aux-cache \
-           /var/cache/tailscale/
-
-# Final System State
-RUN systemctl set-default graphical.target
-
-# Explicitly set the init process (Standard for bootable containers)
 CMD ["/sbin/init"]
 
-# Container linting
-RUN bootc container lint
+RUN ["bootc", "container", "lint"]
