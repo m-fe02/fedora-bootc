@@ -11,8 +11,8 @@ RUN --mount=type=bind,from=ctx,src=/,dst=/ctx \
     --mount=type=cache,target=/var/cache \
     --mount=type=cache,target=/var/log \
     --mount=type=tmpfs,target=/tmp \
-    DESKTOP_ENV=${DESKTOP_ENV} /ctx/install.sh && \
-    /ctx/post-install.sh
+    DESKTOP_ENV=${DESKTOP_ENV} bash /ctx/install.sh && \
+    bash /ctx/post-install.sh
 
 RUN rm -rf /opt && ln -s /var/opt /opt && \
     systemctl set-default graphical.target

@@ -10,8 +10,8 @@ mkdir -p /usr/share/plymouth/themes/spinner/
 cp /ctx/system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 
 # Run the external branding/fastfetch scripts from the context
-/ctx/scripts/branding.sh
-/ctx/scripts/fastfetch-setup.sh
+bash /ctx/scripts/branding.sh
+bash /ctx/scripts/fastfetch-setup.sh
 
 # Security & Signing Policy
 cp /ctx/system/policy.json /etc/containers/policy.json
