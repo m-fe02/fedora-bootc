@@ -4,7 +4,7 @@ steam
 # Core Tools
 neovim
 distrobox
-gnome-disk-utlity
+gnome-disk-utility
 stow
 fastfetch
 
