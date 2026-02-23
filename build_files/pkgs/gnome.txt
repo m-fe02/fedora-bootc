@@ -2,9 +2,14 @@
 adw-gtk3-theme
 gnome-tweaks
 
-# General Tools
+# Gaming
+steam
+
+# Core CLI Tools
 neovim
 distrobox
 stow
 fastfetch
+
+# Networking & System
 tailscale
