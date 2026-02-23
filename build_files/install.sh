@@ -1,16 +1,28 @@
 #!/bin/bash
 set -ex
 
-# Setup Tailscale Repo
+# Setup External Repos
 curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-# Determine which package list to use (passed as an ARG)
-PKGLIST="/ctx/pkgs/${DESKTOP_ENV:-cosmic}.txt"
+# Prepare Package Lists
+REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
+# Shared installs (tools every Hackpad OS needs)
+COMMON_INSTALLS=$(grep -v '^#' /ctx/pkgs/common.txt | xargs)
+# Variant specific (cosmic, kde, or gnome)
+VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}.txt" | xargs)
 
-# Perform DNF transaction
+# 3. Execute Transaction
 dnf upgrade -y --exclude=kernel*
-dnf remove -y $(grep -v '^#' /ctx/pkgs/remove.txt | xargs) || true
-dnf install -y $(grep -v '^#' "$PKGLIST" | xargs)
 
-# Final DNF clean (within the mount)
+# Remove first to prevent conflicts
+if [ -n "$REMOVALS" ]; then
+    dnf remove -y $REMOVALS
+fi
+
+# Install common and variant packages together
+dnf install -y $COMMON_INSTALLS $VARIANT_INSTALLS
+
+# 4. Final Cleanup (The Lint-Killer)
 dnf autoremove -y
+dnf clean all
+rm -rf /var/lib/dnf /var/log/dnf5.log
