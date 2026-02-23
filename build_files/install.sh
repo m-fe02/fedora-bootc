@@ -6,8 +6,6 @@ curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fed
 
 # Prepare Package Lists
 REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
-# Shared installs (tools every Hackpad OS needs)
-COMMON_INSTALLS=$(grep -v '^#' /ctx/pkgs/common.txt | xargs)
 # Variant specific (cosmic, kde, or gnome)
 VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}.txt" | xargs)
 
@@ -20,7 +18,7 @@ if [ -n "$REMOVALS" ]; then
 fi
 
 # Install common and variant packages together
-dnf install -y $COMMON_INSTALLS $VARIANT_INSTALLS
+dnf install -y $VARIANT_INSTALLS
 
 # 4. Final Cleanup (The Lint-Killer)
 dnf autoremove -y
