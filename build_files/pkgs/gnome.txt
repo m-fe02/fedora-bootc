@@ -1,15 +1,2 @@
-# Gnome specific packages
-adw-gtk3-theme
-gnome-tweaks
-
-# Gaming
-steam
-
-# Core CLI Tools
-neovim
-distrobox
-stow
-fastfetch
-
 # Networking & System
 tailscale

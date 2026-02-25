@@ -1,12 +1,2 @@
-# Gaming
-steam
-
-# Core Tools
-neovim
-distrobox
-gnome-disk-utility
-stow
-fastfetch
-
 # Networking & System
 tailscale
