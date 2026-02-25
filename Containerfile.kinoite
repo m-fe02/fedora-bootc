@@ -1,4 +1,4 @@
-ARG FEDORA_MAJOR_VERSION=44
+ARG FEDORA_MAJOR_VERSION=43
 FROM scratch AS ctx
 COPY build_files/ /
 COPY system/ /system/
