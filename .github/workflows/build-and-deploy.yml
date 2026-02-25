@@ -53,7 +53,7 @@ jobs:
       # --- KINOITE ---
       - name: 'Build and Push KDE Image'
         run: |
-          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:deck-kde
+          podman build -f Containerfile.deck-kde --tag ghcr.io/m-fe02/fedora-bootc:deck-kde
           podman push ghcr.io/m-fe02/fedora-bootc:deck-kde
           podman system prune -a -f
 
