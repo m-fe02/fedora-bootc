@@ -3,7 +3,7 @@ name: Deploy Images to GHCR
 on:
   push:
     branches:
-      - gaming-images
+      - deck
   schedule:
     - cron: '0 6 * * 6'
   workflow_dispatch:
@@ -37,41 +37,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- COSMIC ATOMIC ---
-      - name: 'Build and Push Cosmic-Atomic Image'
+      # --- GNOME ---
+      - name: 'Build and Push GNOME Image'
         run: |
-          podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
-          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
+          podman build -f Containerfile.deck-gnome --tag ghcr.io/m-fe02/fedora-bootc:deck-gnome
+          podman push ghcr.io/m-fe02/fedora-bootc:deck-gnome
           podman system prune -a -f
 
-      - name: 'Sign Cosmic-Atomic Image'
+      - name: 'Sign GNOME Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:cosmic-atomic-gaming
-
-      # --- SILVERBLUE ---
-      - name: 'Build and Push Silverblue Image'
-        run: |
-          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
-          podman push ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
-          podman system prune -a -f
-
-      - name: 'Sign Silverblue Image'
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
-        run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:silverblue-gaming
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:deck-gnome
 
       # --- KINOITE ---
-      - name: 'Build and Push Kinoite Image'
+      - name: 'Build and Push KDE Image'
         run: |
-          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
-          podman push ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
+          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:deck-kde
+          podman push ghcr.io/m-fe02/fedora-bootc:deck-kde
           podman system prune -a -f
 
-      - name: 'Sign Kinoite Image'
+      - name: 'Sign KDE Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:kinoite-gaming
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:deck-kde
