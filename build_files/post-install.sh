@@ -7,7 +7,7 @@ cp /ctx/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.to
 
 # Branding & Watermark
 mkdir -p /usr/share/plymouth/themes/spinner/
-cp /ctx/system/branding/hackpad_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
+cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 
 # Run the external branding/fastfetch scripts from the context
 bash /ctx/scripts/branding.sh

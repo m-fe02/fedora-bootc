@@ -1,23 +1,23 @@
 #!/usr/bin/bash
 set -eoux pipefail
 
-echo "Applying Hackpad OS Branding..."
+echo "Applying HackPod_OS Branding..."
 
 # Identity Update
 cat <<EOF > /etc/os-release
-NAME="Hackpad OS"
+NAME="HackPod_OS"
 VERSION="43"
-ID=hackpad
+ID=hackpod
 ID_LIKE=fedora
 VERSION_ID=43
-PRETTY_NAME="Hackpad OS 43 (Atomic)"
+PRETTY_NAME="HackPod_OS (Atomic)"
 ANSI_COLOR="0;34"
-CPE_NAME="cpe:/o:hackpad:hackpad:43"
+CPE_NAME="cpe:/o:hackpod:hackpod"
 HOME_URL="https://github.com/m-fe02/fedora-bootc"
 VARIANT="Custom BootC Image"
 VARIANT_ID="bootc"
 BUILD_ID=$(date +%Y%m%d)
-LOGO="hackpad"
+LOGO="hackpod"
 EOF
 
 # Rebuild Initramfs
