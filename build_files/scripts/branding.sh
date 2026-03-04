@@ -83,21 +83,22 @@ echo "Applying System Logo Hijacks..."
 mkdir -p /usr/share/plymouth/themes/spinner/
 cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 
-# Detect if we are on a GNOME-based image
-if [[ "${DESKTOP_ENV:-}" == *"gnome"* ]] || [ -d "/usr/share/gdm" ]; then
-    echo "GNOME/GDM detected. Overwriting Fedora branding..."
+# Gnome specific logo hijacks
+if [[ "${DESKTOP_ENV:-}" == *"gnome"* ]]; then
+    echo "GNOME environment detected. Overwriting GDM branding..."
     mkdir -p /usr/share/pixmaps
     
-    # Overwrite the Fedora GDM logo
+    # Hijack the GDM login logo with your pre-sized asset
     if [ -f "/ctx/system/branding/hackpad_gdm.png" ]; then
         cp /ctx/system/branding/hackpad_gdm.png /usr/share/pixmaps/fedora-gdm-logo.png
-        echo "GDM logo hijacked with pre-sized asset."
     fi
 
-    # Provide the standard logo referenced in os-release
+    # Provide the standard logo for the 'About' page
     if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
         cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/pixmaps/hackpod.png
     fi
+else
+    echo "Non-GNOME environment (${DESKTOP_ENV:-}) detected. Skipping GDM hijacks."
 fi
 # --- HIJACK SECTION END ---
 
