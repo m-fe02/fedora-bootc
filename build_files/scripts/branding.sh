@@ -94,7 +94,7 @@ if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
     cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-small.png"
     cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
     cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PI/XMAP_DIR/hackpod.svg"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/hackpod.svg"
 fi
 
 # Raster Hijack (GDM and Legacy Fallbacks)
