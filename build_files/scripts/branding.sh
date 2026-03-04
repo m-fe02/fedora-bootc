@@ -84,21 +84,24 @@ mkdir -p /usr/share/plymouth/themes/spinner/
 cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
 
 # Gnome specific logo hijacks
-if [[ "${DESKTOP_ENV:-}" == *"gnome"* ]]; then
-    echo "GNOME environment detected. Overwriting GDM branding..."
-    mkdir -p /usr/share/pixmaps
-    
-    # Hijack the GDM login logo
-    if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
-        cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/pixmaps/fedora-gdm-logo.png
-    fi
+    PIXMAP_DIR="/usr/share/pixmaps"
+    mkdir -p "$PIXMAP_DIR"
 
-    # Provide the standard logo for the 'About' page
-    if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
-        cp /ctx/system/branding/hackpod_OS_transparent.svg /usr/share/pixmaps/hackpod.png
-    fi
-else
-    echo "Non-GNOME environment (${DESKTOP_ENV:-}) detected. Skipping GDM hijacks."
+if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_logo_med.png"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_whitelogo_med.png"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/system-logo-white.png"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-small.png"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
+    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PI/XMAP_DIR/hackpod.svg"
+fi
+
+# Raster Hijack (GDM and Legacy Fallbacks)
+if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
+    cp /ctx/system/branding/hackpod_OS_transparent.png "$PIXMAP_DIR/fedora-gdm-logo.png"
+    # Overwriting the generic logo just in case
+    cp /ctx/system/branding/hackpod_OS_transparent.png "$PIXMAP_DIR/fedora-logo.png"
 fi
 # --- HIJACK SECTION END ---
 
