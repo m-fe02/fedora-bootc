@@ -5,13 +5,8 @@ set -ex
 mkdir -p /usr/lib/bootc/kargs.d/
 cp /ctx/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
 
-# Branding & Watermark
-mkdir -p /usr/share/plymouth/themes/spinner/
-cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
-
 # Run the external branding/fastfetch scripts from the context
 bash /ctx/scripts/branding.sh
-bash /ctx/scripts/fastfetch-setup.sh
 
 # Security & Signing Policy
 cp /ctx/system/policy.json /etc/containers/policy.json
