@@ -95,7 +95,7 @@ if [[ "${DESKTOP_ENV:-}" == *"gnome"* ]]; then
 
     # Provide the standard logo for the 'About' page
     if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
-        cp /ctx/system/branding/hackpod_OS_transparent.svg /usr/share/pixmaps/fedora_logo_med.png
+        cp /ctx/system/branding/hackpod_OS_transparent.svg /usr/share/pixmaps/hackpod.png
     fi
 else
     echo "Non-GNOME environment (${DESKTOP_ENV:-}) detected. Skipping GDM hijacks."
