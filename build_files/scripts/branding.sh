@@ -8,7 +8,7 @@ mkdir -p /usr/share/hackpod
 
 # Create the ASCII art file
 cat <<'EOF' > /usr/share/hackpod/ascii
-    __  __            __  ____            __    ____  _____
+    __  __           __   ____            __    ____  _____
    / / / /___ ______/ /__/ __ \____  ____/ /   / __ \/ ___/
   / /_/ / __ `/ ___/ //_/ /_/ / __ \/ __  /   / / / /\__ \
  / __  / /_/ / /__/ ,< / ____/ /_/ / /_/ /   / /_/ /___/ /
@@ -88,14 +88,14 @@ if [[ "${DESKTOP_ENV:-}" == *"gnome"* ]]; then
     echo "GNOME environment detected. Overwriting GDM branding..."
     mkdir -p /usr/share/pixmaps
     
-    # Hijack the GDM login logo with your pre-sized asset
-    if [ -f "/ctx/system/branding/hackpad_gdm.png" ]; then
-        cp /ctx/system/branding/hackpad_gdm.png /usr/share/pixmaps/fedora-gdm-logo.png
+    # Hijack the GDM login logo
+    if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
+        cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/pixmaps/fedora-gdm-logo.png
     fi
 
     # Provide the standard logo for the 'About' page
-    if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
-        cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/pixmaps/hackpod.png
+    if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
+        cp /ctx/system/branding/hackpod_OS_transparent.svg /usr/share/pixmaps/fedora_logo_med.png
     fi
 else
     echo "Non-GNOME environment (${DESKTOP_ENV:-}) detected. Skipping GDM hijacks."
