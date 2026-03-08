@@ -9,7 +9,7 @@ REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
 # Variant specific (cosmic, kde, or gnome)
 VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}.txt" | xargs)
 
-# 3. Execute Transaction
+# Execute Transaction
 dnf upgrade -y --exclude=kernel*
 
 # Remove first to prevent conflicts
@@ -20,7 +20,7 @@ fi
 # Install common and variant packages together
 dnf install -y $VARIANT_INSTALLS
 
-# 4. Final Cleanup (The Lint-Killer)
+# Final Cleanup
 dnf autoremove -y
 dnf clean all
 rm -rf /var/lib/dnf /var/log/dnf5.log

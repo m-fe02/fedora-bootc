@@ -105,6 +105,20 @@ if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
 fi
 # --- HIJACK SECTION END ---
 
+echo "Purging unwanted desktop entries..."
+
+FORBIDDEN_APP_ENTRIES=(
+    "org.freedesktop.MalcontentControl.desktop"
+)
+
+for entry in "${FORBIDDEN_APP_ENTRIES[@]}"; do
+    TARGET="/usr/share/applications/$entry"
+    if [ -f "$TARGET" ]; then
+        echo "Removing: $entry"
+        rm -f "$TARGET"
+    fi
+done
+
 echo "Regenerating Initramfs..."
 
 # Rebuild Initramfs
