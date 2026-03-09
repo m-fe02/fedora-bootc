@@ -15,8 +15,17 @@ permissions:
   id-token: write
 
 jobs:
-  push-store-image:
+  build-and-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - image: cosmic-atomic
+            desktop: cosmic
+          - image: silverblue
+            desktop: gnome
+          - image: kinoite
+            desktop: kde
     defaults:
       run:
         working-directory: '.'
@@ -37,41 +46,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- COSMIC ATOMIC ---
-      - name: 'Build and Push Cosmic-Atomic Image'
+      - name: 'Build and Push Image'
         run: |
-          podman build -f Containerfile.cosmic-atomic --tag ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
-          podman push ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
+          podman build \
+            --build-arg BASE_IMAGE_NAME=${{ matrix.image }} \
+            --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
+            --tag ghcr.io/m-fe02/hackpad-os:${{ matrix.image }} \
+            -f Containerfile
+          podman push ghcr.io/m-fe02/hackpad-os:${{ matrix.image }}
           podman system prune -a -f
 
-      - name: 'Sign Cosmic-Atomic Image'
+      - name: 'Sign Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:cosmic-atomic
-
-      # --- SILVERBLUE ---
-      - name: 'Build and Push Silverblue Image'
-        run: |
-          podman build -f Containerfile.silverblue --tag ghcr.io/m-fe02/fedora-bootc:silverblue
-          podman push ghcr.io/m-fe02/fedora-bootc:silverblue
-          podman system prune -a -f
-
-      - name: 'Sign Silverblue Image'
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
-        run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:silverblue
-
-      # --- KINOITE ---
-      - name: 'Build and Push Kinoite Image'
-        run: |
-          podman build -f Containerfile.kinoite --tag ghcr.io/m-fe02/fedora-bootc:kinoite
-          podman push ghcr.io/m-fe02/fedora-bootc:kinoite
-          podman system prune -a -f
-
-      - name: 'Sign Kinoite Image'
-        env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
-        run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fedora-bootc:kinoite
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/hackpad-os:${{ matrix.image }}

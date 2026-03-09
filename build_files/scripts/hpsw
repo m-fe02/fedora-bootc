@@ -1,0 +1,56 @@
+#!/bin/bash
+# hpsw: Hackpad OS Variant Switcher
+
+REGISTRY="ghcr.io/m-fe02/hackpad-os"
+
+function show_usage() {
+    echo "Hackpad OS Switcher"
+    echo "Usage: hpsw [variant | status]"
+    echo ""
+    echo "Variants:"
+    echo "  cosmic  -> :cosmic-atomic"
+    echo "  silver  -> :silverblue"
+    echo "  kinoite -> :kinoite"
+    echo ""
+    echo "Commands:"
+    echo "  status  - Show current booted and staged images"
+}
+
+if [ -z "$1" ]; then
+    show_usage
+    exit 1
+fi
+
+case "$1" in
+    status)
+        bootc status | grep -E "Booted|Queued|Image:"
+        exit 0
+        ;;
+    cosmic)
+        TAG="cosmic-atomic"
+        ;;
+    silver)
+        TAG="silverblue"
+        ;;
+    kinoite)
+        TAG="kinoite"
+        ;;
+    *)
+        echo "Error: Unknown variant '$1'"
+        show_usage
+        exit 1
+        ;;
+esac
+
+FULL_IMAGE_PATH="${REGISTRY}:${TAG}"
+
+echo "🔄 Preparing switch to Hackpad ($TAG)..."
+sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
+
+if [ $? -eq 0 ]; then
+    echo -e "\n✅ Switch staged. Your branding hijacks will be active after reboot."
+    read -p "Reboot now? (y/N): " confirm
+    [[ $confirm == [yY] ]] && sudo reboot
+else
+    echo "❌ Switch failed. Check your network or GHCR access."
+fi
