@@ -19,7 +19,7 @@ RUN --mount=type=bind,from=ctx,src=/,dst=/ctx \
     bash /ctx/scripts/install.sh && \
     bash /ctx/scripts/post-install.sh
 
-RUN rm -rf /opt && ln -s /var/opt /opt && 
+RUN rm -rf /opt && ln -s /var/opt /opt && \
     systemctl set-default graphical.target
 
 CMD ["/sbin/init"]
