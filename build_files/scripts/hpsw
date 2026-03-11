@@ -5,7 +5,7 @@ REGISTRY="ghcr.io/m-fe02/hackpad-os"
 
 function show_usage() {
     echo "Hackpad OS Switcher"
-    echo "Usage: hpsw [variant | status]"
+    echo "Usage: hpsw [variant | command]"
     echo ""
     echo "Variants:"
     echo "  cosmic  -> :cosmic-atomic"
@@ -14,6 +14,7 @@ function show_usage() {
     echo ""
     echo "Commands:"
     echo "  status  - Show current booted and staged images"
+    echo "  upgrade - Upgrade to the latest version of the current image"
 }
 
 if [ -z "$1" ]; then
@@ -26,6 +27,11 @@ case "$1" in
         bootc status | grep -E "Booted|Queued|Image:"
         exit 0
         ;;
+    upgrade)
+        echo "⬆️  Upgrading..."
+        sudo bootc upgrade
+        exit $?
+        ;;
     cosmic)
         TAG="cosmic-atomic"
         ;;
@@ -36,7 +42,7 @@ case "$1" in
         TAG="kinoite"
         ;;
     *)
-        echo "Error: Unknown variant '$1'"
+        echo "Error: Unknown variant or command '$1'"
         show_usage
         exit 1
         ;;

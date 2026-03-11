@@ -51,7 +51,7 @@ The `hpsw` utility is a simple script to switch between the different HackPad_OS
 **Usage:**
 
 ```bash
-hpsw [variant | status]
+hpsw [variant | command]
 ```
 
 **Variants:**
@@ -63,6 +63,7 @@ hpsw [variant | status]
 **Commands:**
 
 *   `status`: Show the current booted and staged images.
+*   `upgrade`: Upgrade to the latest version of the current image.
 
 **Example:**
 
