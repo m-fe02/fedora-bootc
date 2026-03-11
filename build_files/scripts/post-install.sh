@@ -18,4 +18,6 @@ cp /ctx/cosign.pub /etc/pki/containers/cosign.pub
 
 # Persistence & Management Scripts
 cp /ctx/scripts/seal-os.sh /usr/bin/seal-os
+cp /ctx/scripts/hpsw /usr/bin/hpsw
 chmod +x /usr/bin/seal-os
+chmod +x /usr/bin/hpsw
