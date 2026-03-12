@@ -51,13 +51,13 @@ jobs:
           podman build \
             --build-arg BASE_IMAGE_NAME=${{ matrix.image }} \
             --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
-            --tag ghcr.io/m-fe02/hackpad-os:${{ matrix.image }} \
+            --tag ghcr.io/m-fe02/hackpod-os:${{ matrix.image }} \
             -f Containerfile
-          podman push ghcr.io/m-fe02/hackpad-os:${{ matrix.image }}
+          podman push ghcr.io/m-fe02/hackpod-os:${{ matrix.image }}
           podman system prune -a -f
 
       - name: 'Sign Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/hackpad-os:${{ matrix.image }}
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/hackpod-os:${{ matrix.image }}

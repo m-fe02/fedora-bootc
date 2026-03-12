@@ -4,7 +4,7 @@
     ],
     "transports": {
         "docker": {
-            "ghcr.io/m-fe02/hackpad-os": [
+            "ghcr.io/m-fe02/hackpod-os": [
                 {
                     "type": "sigstoreSigned",
                     "keyPath": "/etc/pki/containers/cosign.pub",

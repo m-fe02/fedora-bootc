@@ -1,40 +1,40 @@
-# HackPad_OS
+# HackPod_OS
 
-This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as HackPad_OS.
+This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as HackPod_OS.
 
 The images are built automatically using GitHub Actions and are available on `ghcr.io`.
 
 ## Getting Started
 
-You can switch your OS to one of the HackPad_OS images using the `bootc` command.
+You can switch your OS to one of the HackPod_OS images using the `bootc` command.
 
-**Warning:** This will replace your current operating system with the selected HackPad_OS image.
+**Warning:** This will replace your current operating system with the selected HackPod_OS image.
 
 ### Silverblue (GNOME)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpad-os:silverblue
+sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:silverblue
 ```
 
 ### Kinoite (KDE)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpad-os:kinoite
+sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:kinoite
 ```
 
 ### Cosmic Atomic (Cosmic)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpad-os:cosmic-atomic
+sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:cosmic-atomic
 ```
 
 ## Post-Installation Utilities
 
-After you have switched to a HackPad_OS image and rebooted, there are two utilities available to you: `seal-os` and `hpsw`.
+After you have switched to a HackPod_OS image and rebooted, there are two utilities available to you: `seal-os` and `hpsw`.
 
 ### `seal-os`
 
-The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/hackpad-os` repository.
+The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/HackPod-os` repository.
 
 To seal your system, run the following command:
 
@@ -44,9 +44,9 @@ sudo seal-os
 
 You will be prompted to reboot after the process is complete.
 
-### `hpsw` (HackPad_OS Switcher)
+### `hpsw` (HackPod_OS Switcher)
 
-The `hpsw` utility is a simple script to switch between the different HackPad_OS desktop variants.
+The `hpsw` utility is a simple script to switch between the different HackPod_OS desktop variants.
 
 **Usage:**
 
@@ -93,7 +93,7 @@ If you want to build the images locally, you can use the provided `Containerfile
 podman build \
     --build-arg BASE_IMAGE_NAME=silverblue \
     --build-arg DESKTOP_ENV=gnome \
-    -t hackpad-os:silverblue .
+    -t hackpod-os:silverblue .
 ```
 
 #### Kinoite (KDE)
@@ -102,7 +102,7 @@ podman build \
 podman build \
     --build-arg BASE_IMAGE_NAME=kinoite \
     --build-arg DESKTOP_ENV=kde \
-    -t hackpad-os:kinoite .
+    -t hackpod-os:kinoite .
 ```
 
 #### Cosmic Atomic (Cosmic)
@@ -111,5 +111,5 @@ podman build \
 podman build \
     --build-arg BASE_IMAGE_NAME=cosmic-atomic \
     --build-arg DESKTOP_ENV=cosmic \
-    -t hackpad-os:cosmic-atomic .
+    -t hackpod-os:cosmic-atomic .
 ```

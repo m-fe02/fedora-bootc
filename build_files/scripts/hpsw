@@ -1,10 +1,10 @@
 #!/bin/bash
-# hpsw: Hackpad OS Variant Switcher
+# hpsw: HackPod_OS Variant Switcher
 
-REGISTRY="ghcr.io/m-fe02/hackpad-os"
+REGISTRY="ghcr.io/m-fe02/hackpod-os"
 
 function show_usage() {
-    echo "Hackpad OS Switcher"
+    echo "HackPod_OS Switcher"
     echo "Usage: hpsw [variant | command]"
     echo ""
     echo "Variants:"
@@ -50,7 +50,7 @@ esac
 
 FULL_IMAGE_PATH="${REGISTRY}:${TAG}"
 
-echo "🔄 Preparing switch to Hackpad ($TAG)..."
+echo "🔄 Preparing switch to HackPod_OS ($TAG)..."
 sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
 
 if [ $? -eq 0 ]; then
