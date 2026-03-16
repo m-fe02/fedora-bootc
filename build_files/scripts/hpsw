@@ -1,0 +1,62 @@
+#!/bin/bash
+# hpsw: HackPod_OS Variant Switcher
+
+REGISTRY="ghcr.io/m-fe02/hackpod-os"
+
+function show_usage() {
+    echo "HackPod_OS Switcher"
+    echo "Usage: hpsw [variant | command]"
+    echo ""
+    echo "Variants:"
+    echo "  cosmic  -> :cosmic-atomic"
+    echo "  silver  -> :silverblue"
+    echo "  kinoite -> :kinoite"
+    echo ""
+    echo "Commands:"
+    echo "  status  - Show current booted and staged images"
+    echo "  upgrade - Upgrade to the latest version of the current image"
+}
+
+if [ -z "$1" ]; then
+    show_usage
+    exit 1
+fi
+
+case "$1" in
+    status)
+        bootc status | grep -E "Booted|Queued|Image:"
+        exit 0
+        ;;
+    upgrade)
+        echo "⬆️  Upgrading..."
+        sudo bootc upgrade
+        exit $?
+        ;;
+    cosmic)
+        TAG="cosmic-atomic"
+        ;;
+    silver)
+        TAG="silverblue"
+        ;;
+    kinoite)
+        TAG="kinoite"
+        ;;
+    *)
+        echo "Error: Unknown variant or command '$1'"
+        show_usage
+        exit 1
+        ;;
+esac
+
+FULL_IMAGE_PATH="${REGISTRY}:${TAG}"
+
+echo "🔄 Preparing switch to HackPod_OS ($TAG)..."
+sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
+
+if [ $? -eq 0 ]; then
+    echo -e "\n✅ Switch staged. Your branding hijacks will be active after reboot."
+    read -p "Reboot now? (y/N): " confirm
+    [[ $confirm == [yY] ]] && sudo reboot
+else
+    echo "❌ Switch failed. Check your network or GHCR access."
+fi

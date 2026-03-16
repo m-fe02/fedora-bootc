@@ -62,14 +62,14 @@ echo "Applying HackPod_OS Branding..."
 # Identity Update
 cat <<EOF > /etc/os-release
 NAME="HackPod_OS"
-VERSION="43"
+VERSION="44"
 ID=hackpod
 ID_LIKE=fedora
-VERSION_ID=43
+VERSION_ID=44
 PRETTY_NAME="HackPod_OS (Atomic)"
 ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:hackpod:hackpod"
-HOME_URL="https://github.com/m-fe02/hackpadOS"
+HOME_URL="https://github.com/m-fe02/HackPod_OS"
 VARIANT="Custom BootC Image"
 VARIANT_ID="bootc"
 BUILD_ID=$(date +%Y%m%d)
@@ -104,6 +104,20 @@ if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
     cp /ctx/system/branding/hackpod_OS_transparent.png "$PIXMAP_DIR/fedora-logo.png"
 fi
 # --- HIJACK SECTION END ---
+
+echo "Purging unwanted desktop entries..."
+
+FORBIDDEN_APP_ENTRIES=(
+    "org.freedesktop.MalcontentControl.desktop"
+)
+
+for entry in "${FORBIDDEN_APP_ENTRIES[@]}"; do
+    TARGET="/usr/share/applications/$entry"
+    if [ -f "$TARGET" ]; then
+        echo "Removing: $entry"
+        rm -f "$TARGET"
+    fi
+done
 
 echo "Regenerating Initramfs..."
 

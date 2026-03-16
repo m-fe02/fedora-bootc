@@ -5,7 +5,7 @@ set -ex
 mkdir -p /usr/lib/bootc/kargs.d/
 cp /ctx/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
 
-# Run the external branding script
+# Run the external branding/fastfetch scripts from the context
 bash /ctx/scripts/branding.sh
 
 # Security & Signing Policy
@@ -18,4 +18,6 @@ cp /ctx/cosign.pub /etc/pki/containers/cosign.pub
 
 # Persistence & Management Scripts
 cp /ctx/scripts/seal-os.sh /usr/bin/seal-os
+cp /ctx/scripts/hpsw /usr/bin/hpsw
 chmod +x /usr/bin/seal-os
+chmod +x /usr/bin/hpsw
