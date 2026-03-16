@@ -62,10 +62,10 @@ echo "Applying HackPod_OS Branding..."
 # Identity Update
 cat <<EOF > /etc/os-release
 NAME="HackPod_OS"
-VERSION="43"
+VERSION="44"
 ID=hackpod
 ID_LIKE=fedora
-VERSION_ID=43
+VERSION_ID=44
 PRETTY_NAME="HackPod_OS (Atomic)"
 ANSI_COLOR="0;34"
 CPE_NAME="cpe:/o:hackpod:hackpod"
