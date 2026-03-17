@@ -5,8 +5,9 @@ set -ex
 mkdir -p /usr/lib/bootc/kargs.d/
 cp /ctx/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
 
-# Run the external branding/fastfetch scripts from the context
+# Run the external branding/regenerate-initramfs scripts from the context
 bash /ctx/scripts/branding.sh
+bash /ctx/scripts/regenerate-initramfs.sh
 
 # Security & Signing Policy
 cp /ctx/system/policy.json /etc/containers/policy.json

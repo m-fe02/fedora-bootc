@@ -119,20 +119,4 @@ for entry in "${FORBIDDEN_APP_ENTRIES[@]}"; do
     fi
 done
 
-echo "Regenerating Initramfs..."
-
-# Rebuild Initramfs
-KERNEL_VERSION="$(rpm -q --queryformat="%{evr}.%{arch}" kernel-core)"
-export DRACUT_NO_XATTR=1
-
-# We only add 'ostree' because we trust the base image for the rest.
-/usr/bin/dracut --no-hostonly \
-    --kver "${KERNEL_VERSION}" \
-    --reproducible \
-    -v \
-    --add ostree \
-    -f "/lib/modules/${KERNEL_VERSION}/initramfs.img"
-
-chmod 0600 "/lib/modules/${KERNEL_VERSION}/initramfs.img"
-
 echo "Build script execution finished successfully."
