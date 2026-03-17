@@ -24,6 +24,14 @@ fi
 # Install common and variant packages together
 dnf install -y $VARIANT_INSTALLS
 
+# Install CachyOS Kernel
+dnf -y remove kernel kernel-*
+rm -rf /usr/lib/modules/*
+dnf -y copr enable bieszczaders/kernel-cachyos-lto
+dnf -y install --setopt=install_weak_deps=False kernel-cachyos-lto
+dnf -y copr disable bieszczaders/kernel-cachyos-lto
+setsebool -P domain_kernel_load_modules on
+
 # Final Cleanup
 dnf autoremove -y
 dnf clean all
