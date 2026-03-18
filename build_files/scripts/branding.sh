@@ -7,42 +7,43 @@ echo "Configuring Fastfetch Presentation..."
 mkdir -p /usr/share/adamant
 
 # Create the ASCII art file
-cat <<'EOF' > /usr/share/adamant/ascii
-                                               '0ol0,                                           
-                                            'Kd;''.';oK                                         
-                                          Xx:',,,. ,,,':dk                                      
-                                       ,0l',,,,,,  ,,,,,,'lO'                                   
-                                     Xd;',,,,,,,,  .,,,,,,,';dK                                 
-                                  dl:',,,,,,,,,,.  .,,,,,,,,,,'ccN                              
-                               xkc'l,,,,,,,,,,,,    ,,,,,,,,,,,;''ckx                           
-                            ,0l,,,;l,,,,,,,,,,,,    ,,,,,,,,,,,,c,,,,l0,                        
-                          kd;',,,,,:,,,,,,,,,,,'    ',,,,,,,,,,,c.,,,,';dd                      
-                       lkl,,,,,,,,l:,,,,,,,,';o'    .o';,,,,,,,,;',,,,,,,'cO,                   
-                    .0o,,,,,,,,,,;l,,,,,,,.oo:,      ,:oo',,,,,,,c,,,,,,,,,',l0,                
-                    ;.,,,,,,,,,,,,x,,,,.ool;,,,      .,,,coo.,,,,c,,,,,,,,,,,,.l                
-                    :,,,,,,,,,,,,l:,,.do;,,,,,.      .,,,,,;od.;,;;,,,,,,,,,,,,c                
-                    :,,,,,,,,,,,;l':ol;,,,,,,,.       ,,,,,,,,coo.;;,,,,,,,,,,,.,               
-                   ,.,,,,,,,,,,.loo;,,,,,,,,,,        ',,,,,,,,,;ldx.,,,,,,,,,,.o               
-                   l.,,,,,,,.'doco,,,,,,,,,,,.        .,,,,,,,,,,,o:od:',,,,,,,,l               
-                   :,,,,,;.dd:,,o;,,,,,,,,,,,.        .,,,,,,,,,,,;o,,:dd.;,,,,,.,              
-                  ,.,,,,:xl,,,,,o,,,,,,,,,,,,          ,,,,,,,,,,,,o;,,,,lx,',,,.'              
-                  '.;.dd:,,,,,,:l,,,,,,,,,'.            .',,,,,,,,,d:,,,,,,:dd.;';              
-                  ,odl,,,,,,,,,:l,,,,,,,.                  .',,,,,,:o,,,,,,,,,cdd,              
-                  .;,,,,,,,,,,,';,,,,..                       .,,,,,o;,,,,,,,,,,;..             
-                 ..,,,,,,,,,,,,l,,'.                            ..,,d:,,,,,,,,,,,,,             
-                 ,',,,,,,,,,,,:o.              ..,,'..             .;l,,,,,,,,,,,,;             
-                 ;,,,,,,,,,,,',           ..',,,,,,,,,,'..           '.,,,,,,,,,,,,             
-                 ,,,,,,,,,'.         ..',,,,,,,,,,,,,,,,,,,,'...        .',,,,,,,,.,            
-                ,.,,,,,,.      ..;lo..;,,,,,,,,,,,,,,,,,,,,,,,; ol:..      .',,,,,':            
-                :',,,..   ...',,,,,;coooo' ;,,,,,,,,,,,,,,.loolc;,,,,,,'..    .,,,,'            
-                ,,'.  ..,,,,,,,,,,,,,,,,,:oddd .,,,,;.:oooc;,,,,,,,,,,,,,,,,... ..,.,           
-                 ..',,,,,,,,,,,,,,,,,,,,,,,,,;co lx.ol;,,,,,,,,,,,,,,,,,,,,,,,,,'...            
-                     .',,,,,,,,,,,,,,,,,,,; :oool:;clooo..,,,,,,,,,,,,,,,,,,,'.                 
-                           ',,,,,,,,,'.ooool;,,,,,,,,,,,:llol,.;,,,,,,,,'.                      
-                               .'.;ddoc;,,,,,,,,,,,,,,,,,,,,,:looo;''                           
-                                    .',,,,,,,,,,,,,,,,,,,,,,,,'.                                
-                                         .',,,,,,,,,,,,,,'.                                     
-                                               ',,,,'.                                          
+cat <<EOF > /usr/share/adamant/ascii
+\e[31m                                              ...                                                    
+                                                 ..','',,..                                                 
+                                              ..',,,,..,,,,,..                                              
+                                           ..',,,,,,,..,,,,,,,'..                                           
+                                        ..',,,,,,,,,,. ,,,,,,,,,,'..                                        
+                                     ..',,,,,,,,,,,,,  ,,,,,,,,,,,,,,..                                     
+                                  ..,,,,,,,,,,,,,,,,,  ,,,,,,,,,,,,,,,,,'.                                  
+                               .',,,,,,,,,,,,,,,,,,,,  ',,,,,,,,,,,,,,,,,,,'.                               
+                            ..,,,,,,,,,,,,,,,,,,,,,,,  .,,,,,,,,,,,,,,,,,,,,,,'.                            
+                         ..,,,,,,,,,,,,,,,,,,,,,,,,,,  .,,,,,,,,,,,,,,,,,,,,,,,,,..                         
+                        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,   ,,,,,,,,,,,,,,,,,,,,,,,,,,,,                        
+                        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,.   ,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                       
+                        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,.   ,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                       
+                        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                       
+                       .,,,,,,,,,,,,,,,,,,,,,,,,,,,,    ',,,,,,,,,,,,,,,,,,,,,,,,,,,.                       
+                       .,,,,,,,,,,,,,,,,,,,,,,,,,,,,    .,,,,,,,,,,,,,,,,,,,,,,,,,,,'                       
+                       .,,,,,,,,,,,,,,,,,,,,,,,,,,,,    .,,,,,,,,,,,,,,,,,,,,,,,,,,,'                       
+                       .,,,,,,,,,,,,,,,,,,,,,,,,,,,      ',,,,,,,,,,,,,,,,,,,,,,,,,,,                       
+                       .,,,,,,,,,,,,,,,,,,,,,,,,.           ,,,,,,,,,,,,,,,,,,,,,,,,,                       
+                       ',,,,,,,,,,,,,,,,,,,,,.                 ,,,,,,,,,,,,,,,,,,,,,,                       
+                       ,,,,,,,,,,,,,,,,,,,        ..',,'..        ',,,,,,,,,,,,,,,,,,.                      
+                       ,,,,,,,,,,,,,,,,.      ..',,,,,,,,,,,'..      .,,,,,,,,,,,,,,,.                      
+                       ,,,,,,,,,,,,,      ..',,,,,,,,,,,,,,,,,,,'..     .,,,,,,,,,,,,'                      
+                      .,,,,,,,,,,.    ..',,,,,,,,,,,,,,,,,,,,,,,,,,,'..    ,,,,,,,,,,,                      
+                      .,,,,,,,.  ...',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,'...  ',,,,,,,                      
+                      .,,,,  ''.',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,'.'' .,,,,                      
+                      ',.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                     
+                      .',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,'.                      
+                          .',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,'.                          
+                              .',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                              
+                                  .',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.                                  
+                                      .',,,,,,,,,,,,,,,,,,,,,,,,,,,,'.                                      
+                                           .',,,,,,,,,,,,,,,,,,,'.                                          
+                                               .',,,,,,,,,,,.                                               
+                                                   .,,,,'.                                                                                                                                                              
+\e[0m
 EOF
 
 # Create the Global Configuration
@@ -110,27 +111,27 @@ echo "Applying System Logo Hijacks..."
 
 # Plymouth Logo
 mkdir -p /usr/share/plymouth/themes/spinner/
-cp /ctx/system/branding/adamant_linux.png /usr/share/plymouth/themes/spinner/watermark.png
+cp /ctx/system/branding/adamant.png /usr/share/plymouth/themes/spinner/watermark.png
 
-# Gnome specific logo hijacks
+# Distro specific logo hijacks
     PIXMAP_DIR="/usr/share/pixmaps"
     mkdir -p "$PIXMAP_DIR"
 
-if [ -f "/ctx/system/branding/adamant_linux.svg" ]; then
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_logo_med.png"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_whitelogo_med.png"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/system-logo-white.png"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora-logo-small.png"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
-    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/adamant.svg"
+if [ -f "/ctx/system/branding/adamant.svg" ]; then
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/fedora_logo_med.png"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/fedora_whitelogo_med.png"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/system-logo-white.png"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/fedora-logo-small.png"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
+    cp /ctx/system/branding/adamant.svg "$PIXMAP_DIR/adamant.svg"
 fi
 
 # Raster Hijack (GDM and Legacy Fallbacks)
-if [ -f "/ctx/system/branding/adamant_linux.png" ]; then
-    cp /ctx/system/branding/adamant_linux.png "$PIXMAP_DIR/fedora-gdm-logo.png"
+if [ -f "/ctx/system/branding/adamant.png" ]; then
+    cp /ctx/system/branding/adamant.png "$PIXMAP_DIR/fedora-gdm-logo.png"
     # Overwriting the generic logo just in case
-    cp /ctx/system/branding/adamant_linux.png "$PIXMAP_DIR/fedora-logo.png"
+    cp /ctx/system/branding/adamant.png "$PIXMAP_DIR/fedora-logo.png"
 fi
 # --- HIJACK SECTION END ---
 
