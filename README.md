@@ -1,40 +1,40 @@
-# HackPod_OS
+# Adamant Linux
 
-This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as HackPod_OS.
+This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as Adamant Linux.
 
 The images are built automatically using GitHub Actions and are available on `ghcr.io`.
 
 ## Getting Started
 
-You can switch your OS to one of the HackPod_OS images using the `bootc` command.
+You can switch your OS to one of the Adamant Linux images using the `bootc` command.
 
-**Warning:** This will replace your current operating system with the selected HackPod_OS image.
+**Warning:** This will replace your current operating system with the selected Adamant Linux image.
 
 ### Silverblue (GNOME)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:silverblue
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:gnome
 ```
 
 ### Kinoite (KDE)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:kinoite
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:kde
 ```
 
 ### Cosmic Atomic (Cosmic)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/hackpod-os:cosmic-atomic
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:cosmic
 ```
 
 ## Post-Installation Utilities
 
-After you have switched to a HackPod_OS image and rebooted, there are two utilities available to you: `seal-os` and `hpsw`.
+After you have switched to a Adamant Linux image and rebooted, there are two utilities available to you: `seal-os` and `als`.
 
 ### `seal-os`
 
-The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/HackPod-os` repository.
+The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/adamant-linux` repository.
 
 To seal your system, run the following command:
 
@@ -44,21 +44,21 @@ sudo seal-os
 
 You will be prompted to reboot after the process is complete.
 
-### `hpsw` (HackPod_OS Switcher)
+### `als` (Adamant Linux Switcher)
 
-The `hpsw` utility is a simple script to switch between the different HackPod_OS desktop variants.
+The `als` utility is a simple script to switch between the different Adamant Linux desktop variants.
 
 **Usage:**
 
 ```bash
-hpsw [variant | command]
+als [variant | command]
 ```
 
 **Variants:**
 
 *   `cosmic`: Switch to the Cosmic Atomic variant.
-*   `silver`: Switch to the Silverblue (GNOME) variant.
-*   `kinoite`: Switch to the Kinoite (KDE) variant.
+*   `gnome`: Switch to the Silverblue (GNOME) variant.
+*   `kde`: Switch to the Kinoite (KDE) variant.
 
 **Commands:**
 
@@ -70,46 +70,7 @@ hpsw [variant | command]
 To switch to the Kinoite variant, run the following command:
 
 ```bash
-hpsw kinoite
+als kde
 ```
 
 You will be prompted to reboot after the switch is staged.
-
-## Building Locally (Optional)
-
-If you want to build the images locally, you can use the provided `Containerfile`. You need a container runtime that supports BuildKit, like Podman or Docker.
-
-### Build Arguments
-
-*   `BASE_IMAGE_NAME`: The name of the base image to use from `quay.io/fedora-ostree-desktops`.
-*   `DESKTOP_ENV`: The desktop environment to install. This should correspond to the package list in `build_files/pkgs/`.
-*   `FEDORA_MAJOR_VERSION`: The Fedora major version to use. Defaults to `43`.
-
-### Build Examples
-
-#### Silverblue (GNOME)
-
-```bash
-podman build \
-    --build-arg BASE_IMAGE_NAME=silverblue \
-    --build-arg DESKTOP_ENV=gnome \
-    -t hackpod-os:silverblue .
-```
-
-#### Kinoite (KDE)
-
-```bash
-podman build \
-    --build-arg BASE_IMAGE_NAME=kinoite \
-    --build-arg DESKTOP_ENV=kde \
-    -t hackpod-os:kinoite .
-```
-
-#### Cosmic Atomic (Cosmic)
-
-```bash
-podman build \
-    --build-arg BASE_IMAGE_NAME=cosmic-atomic \
-    --build-arg DESKTOP_ENV=cosmic \
-    -t hackpod-os:cosmic-atomic .
-```

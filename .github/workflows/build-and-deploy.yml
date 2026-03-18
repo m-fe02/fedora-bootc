@@ -20,12 +20,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: cosmic-atomic
-            desktop: cosmic
-          - image: silverblue
+          - base_image: silverblue
             desktop: gnome
-          - image: kinoite
+            tag: gnome
+          - base_image: kinoite
             desktop: kde
+            tag: kde
+          - base_image: cosmic-atomic
+            desktop: cosmic
+            tag: cosmic
     defaults:
       run:
         working-directory: '.'
@@ -49,15 +52,15 @@ jobs:
       - name: 'Build and Push Image'
         run: |
           podman build \
-            --build-arg BASE_IMAGE_NAME=${{ matrix.image }} \
+            --build-arg BASE_IMAGE_NAME=${{ matrix.base_image }} \
             --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
-            --tag ghcr.io/m-fe02/hackpod-os:${{ matrix.image }} \
+            --tag ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }} \
             -f Containerfile
-          podman push ghcr.io/m-fe02/hackpod-os:${{ matrix.image }}
+          podman push ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }}
           podman system prune -a -f
 
       - name: 'Sign Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/hackpod-os:${{ matrix.image }}
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }}

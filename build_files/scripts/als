@@ -1,16 +1,16 @@
 #!/bin/bash
-# hpsw: HackPod_OS Variant Switcher
+# als: Adamant Linux Variant Switcher
 
-REGISTRY="ghcr.io/m-fe02/hackpod-os"
+REGISTRY="ghcr.io/m-fe02/adamant-linux"
 
 function show_usage() {
-    echo "HackPod_OS Switcher"
-    echo "Usage: hpsw [variant | command]"
+    echo "Adamant Linux Switcher"
+    echo "Usage: als [variant | command]"
     echo ""
     echo "Variants:"
-    echo "  cosmic  -> :cosmic-atomic"
-    echo "  silver  -> :silverblue"
-    echo "  kinoite -> :kinoite"
+    echo "  cosmic  -> :cosmic"
+    echo "  gnome   -> :gnome"
+    echo "  kde     -> :kde"
     echo ""
     echo "Commands:"
     echo "  status  - Show current booted and staged images"
@@ -33,13 +33,13 @@ case "$1" in
         exit $?
         ;;
     cosmic)
-        TAG="cosmic-atomic"
+        TAG="cosmic"
         ;;
-    silver)
-        TAG="silverblue"
+    gnome)
+        TAG="gnome"
         ;;
-    kinoite)
-        TAG="kinoite"
+    kde)
+        TAG="kde"
         ;;
     *)
         echo "Error: Unknown variant or command '$1'"
@@ -50,7 +50,7 @@ esac
 
 FULL_IMAGE_PATH="${REGISTRY}:${TAG}"
 
-echo "🔄 Preparing switch to HackPod_OS ($TAG)..."
+echo "🔄 Preparing switch to Adamant Linux ($TAG)..."
 sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
 
 if [ $? -eq 0 ]; then

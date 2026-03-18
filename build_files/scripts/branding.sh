@@ -4,16 +4,45 @@ set -eoux pipefail
 echo "Configuring Fastfetch Presentation..."
 
 # Create the system data directory
-mkdir -p /usr/share/hackpod
+mkdir -p /usr/share/adamant
 
 # Create the ASCII art file
-cat <<'EOF' > /usr/share/hackpod/ascii
-    __  __           __   ____            __    ____  _____
-   / / / /___ ______/ /__/ __ \____  ____/ /   / __ \/ ___/
-  / /_/ / __ `/ ___/ //_/ /_/ / __ \/ __  /   / / / /\__ \
- / __  / /_/ / /__/ ,< / ____/ /_/ / /_/ /   / /_/ /___/ /
-/_/ /_/\__,_/\___/_/|_/_/    \____/\__,_/____\____//____/
-                                       /_____/
+cat <<'EOF' > /usr/share/adamant/ascii
+                                               '0ol0,                                           
+                                            'Kd;''.';oK                                         
+                                          Xx:',,,. ,,,':dk                                      
+                                       ,0l',,,,,,  ,,,,,,'lO'                                   
+                                     Xd;',,,,,,,,  .,,,,,,,';dK                                 
+                                  dl:',,,,,,,,,,.  .,,,,,,,,,,'ccN                              
+                               xkc'l,,,,,,,,,,,,    ,,,,,,,,,,,;''ckx                           
+                            ,0l,,,;l,,,,,,,,,,,,    ,,,,,,,,,,,,c,,,,l0,                        
+                          kd;',,,,,:,,,,,,,,,,,'    ',,,,,,,,,,,c.,,,,';dd                      
+                       lkl,,,,,,,,l:,,,,,,,,';o'    .o';,,,,,,,,;',,,,,,,'cO,                   
+                    .0o,,,,,,,,,,;l,,,,,,,.oo:,      ,:oo',,,,,,,c,,,,,,,,,',l0,                
+                    ;.,,,,,,,,,,,,x,,,,.ool;,,,      .,,,coo.,,,,c,,,,,,,,,,,,.l                
+                    :,,,,,,,,,,,,l:,,.do;,,,,,.      .,,,,,;od.;,;;,,,,,,,,,,,,c                
+                    :,,,,,,,,,,,;l':ol;,,,,,,,.       ,,,,,,,,coo.;;,,,,,,,,,,,.,               
+                   ,.,,,,,,,,,,.loo;,,,,,,,,,,        ',,,,,,,,,;ldx.,,,,,,,,,,.o               
+                   l.,,,,,,,.'doco,,,,,,,,,,,.        .,,,,,,,,,,,o:od:',,,,,,,,l               
+                   :,,,,,;.dd:,,o;,,,,,,,,,,,.        .,,,,,,,,,,,;o,,:dd.;,,,,,.,              
+                  ,.,,,,:xl,,,,,o,,,,,,,,,,,,          ,,,,,,,,,,,,o;,,,,lx,',,,.'              
+                  '.;.dd:,,,,,,:l,,,,,,,,,'.            .',,,,,,,,,d:,,,,,,:dd.;';              
+                  ,odl,,,,,,,,,:l,,,,,,,.                  .',,,,,,:o,,,,,,,,,cdd,              
+                  .;,,,,,,,,,,,';,,,,..                       .,,,,,o;,,,,,,,,,,;..             
+                 ..,,,,,,,,,,,,l,,'.                            ..,,d:,,,,,,,,,,,,,             
+                 ,',,,,,,,,,,,:o.              ..,,'..             .;l,,,,,,,,,,,,;             
+                 ;,,,,,,,,,,,',           ..',,,,,,,,,,'..           '.,,,,,,,,,,,,             
+                 ,,,,,,,,,'.         ..',,,,,,,,,,,,,,,,,,,,'...        .',,,,,,,,.,            
+                ,.,,,,,,.      ..;lo..;,,,,,,,,,,,,,,,,,,,,,,,; ol:..      .',,,,,':            
+                :',,,..   ...',,,,,;coooo' ;,,,,,,,,,,,,,,.loolc;,,,,,,'..    .,,,,'            
+                ,,'.  ..,,,,,,,,,,,,,,,,,:oddd .,,,,;.:oooc;,,,,,,,,,,,,,,,,... ..,.,           
+                 ..',,,,,,,,,,,,,,,,,,,,,,,,,;co lx.ol;,,,,,,,,,,,,,,,,,,,,,,,,,'...            
+                     .',,,,,,,,,,,,,,,,,,,; :oool:;clooo..,,,,,,,,,,,,,,,,,,,'.                 
+                           ',,,,,,,,,'.ooool;,,,,,,,,,,,:llol,.;,,,,,,,,'.                      
+                               .'.;ddoc;,,,,,,,,,,,,,,,,,,,,,:looo;''                           
+                                    .',,,,,,,,,,,,,,,,,,,,,,,,'.                                
+                                         .',,,,,,,,,,,,,,'.                                     
+                                               ',,,,'.                                          
 EOF
 
 # Create the Global Configuration
@@ -22,7 +51,7 @@ cat <<EOF > /etc/fastfetch/config.jsonc
 {
     "\$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema_json",
     "logo": {
-        "source": "/usr/share/hackpod/ascii",
+        "source": "/usr/share/adamant/ascii",
         "type": "file",
         "padding": {
             "top": 2,
@@ -57,23 +86,23 @@ EOF
 
 echo "Fastfetch setup complete."
 
-echo "Applying HackPod_OS Branding..."
+echo "Applying Adamant Linux Branding..."
 
 # Identity Update
 cat <<EOF > /etc/os-release
-NAME="HackPod_OS"
+NAME="Adamant Linux"
 VERSION="44"
-ID=hackpod
+ID=adamant
 ID_LIKE=fedora
 VERSION_ID=44
-PRETTY_NAME="HackPod_OS (Atomic)"
+PRETTY_NAME="Adamant Linux (Atomic)"
 ANSI_COLOR="0;34"
-CPE_NAME="cpe:/o:hackpod:hackpod"
-HOME_URL="https://github.com/m-fe02/HackPod_OS"
+CPE_NAME="cpe:/o:adamant:adamant"
+HOME_URL="https://github.com/m-fe02/Adamant-Linux"
 VARIANT="Custom BootC Image"
 VARIANT_ID="bootc"
 BUILD_ID=$(date +%Y%m%d)
-LOGO="hackpod"
+LOGO="adamant"
 EOF
 
 # --- LOGO HIJACK SECTION START ---
@@ -81,27 +110,27 @@ echo "Applying System Logo Hijacks..."
 
 # Plymouth Logo
 mkdir -p /usr/share/plymouth/themes/spinner/
-cp /ctx/system/branding/hackpod_OS_transparent.png /usr/share/plymouth/themes/spinner/watermark.png
+cp /ctx/system/branding/adamant_linux.png /usr/share/plymouth/themes/spinner/watermark.png
 
 # Gnome specific logo hijacks
     PIXMAP_DIR="/usr/share/pixmaps"
     mkdir -p "$PIXMAP_DIR"
 
-if [ -f "/ctx/system/branding/hackpod_OS_transparent.svg" ]; then
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_logo_med.png"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_whitelogo_med.png"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/system-logo-white.png"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-small.png"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
-    cp /ctx/system/branding/hackpod_OS_transparent.svg "$PIXMAP_DIR/hackpod.svg"
+if [ -f "/ctx/system/branding/adamant_linux.svg" ]; then
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_logo_med.png"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_whitelogo_med.png"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/system-logo-white.png"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora-logo-small.png"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora_whitelogo.svg"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/fedora-logo-sprite.svg"
+    cp /ctx/system/branding/adamant_linux.svg "$PIXMAP_DIR/adamant.svg"
 fi
 
 # Raster Hijack (GDM and Legacy Fallbacks)
-if [ -f "/ctx/system/branding/hackpod_OS_transparent.png" ]; then
-    cp /ctx/system/branding/hackpod_OS_transparent.png "$PIXMAP_DIR/fedora-gdm-logo.png"
+if [ -f "/ctx/system/branding/adamant_linux.png" ]; then
+    cp /ctx/system/branding/adamant_linux.png "$PIXMAP_DIR/fedora-gdm-logo.png"
     # Overwriting the generic logo just in case
-    cp /ctx/system/branding/hackpod_OS_transparent.png "$PIXMAP_DIR/fedora-logo.png"
+    cp /ctx/system/branding/adamant_linux.png "$PIXMAP_DIR/fedora-logo.png"
 fi
 # --- HIJACK SECTION END ---
 
