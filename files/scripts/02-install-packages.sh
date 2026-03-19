@@ -12,13 +12,7 @@ if [ -z "${DESKTOP_ENV}" ]; then
     exit 1
 fi
 
-# Determine where the build context is mounted (older builds used /ctx/scripts, newer use /ctx/files/scripts)
-CTX_BASE="/ctx/files"
-if [ ! -d "$CTX_BASE" ]; then
-    CTX_BASE="/ctx"
-fi
-
-PKG_DIR="$CTX_BASE/scripts/pkgs"
+PKG_DIR="/ctx/scripts/pkgs"
 if [ ! -d "$PKG_DIR" ]; then
     echo "ERROR: package directory not found: $PKG_DIR" >&2
     exit 1
