@@ -6,8 +6,13 @@ curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fed
 
 # Prepare Package Lists
 REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
-# Variant specific (cosmic, kde, or gnome)
-VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}.txt" | xargs)
+# Variant specific (cosmic, kde, or gnome) + optional gaming variant
+GAMING=${GAMING:-false}
+GAMING_SUFFIX=""
+if [ "$GAMING" = "true" ]; then
+    GAMING_SUFFIX="-gaming"
+fi
+VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}${GAMING_SUFFIX}.txt" | xargs)
 
 # Add RPM-Fusion
 dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \

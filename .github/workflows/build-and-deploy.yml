@@ -24,12 +24,27 @@ jobs:
           - base_image: silverblue
             desktop: gnome
             tag: gnome
+            gaming: false
+          - base_image: silverblue
+            desktop: gnome
+            tag: gnome-gaming
+            gaming: true
           - base_image: kinoite
             desktop: kde
             tag: kde
+            gaming: false
+          - base_image: kinoite
+            desktop: kde
+            tag: kde-gaming
+            gaming: true
           - base_image: cosmic-atomic
             desktop: cosmic
             tag: cosmic
+            gaming: false
+          - base_image: cosmic-atomic
+            desktop: cosmic
+            tag: cosmic-gaming
+            gaming: true
     defaults:
       run:
         working-directory: '.'
@@ -55,6 +70,7 @@ jobs:
           podman build \
             --build-arg BASE_IMAGE_NAME=${{ matrix.base_image }} \
             --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
+            --build-arg GAMING=${{ matrix.gaming }} \
             --tag ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }} \
             -f Containerfile
           podman push ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }}

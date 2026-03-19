@@ -1,7 +1,10 @@
-# Core CLI Tools
-ark
+# Gaming
+steam
+
+# Core Tools
 neovim
 distrobox
+gnome-disk-utility
 stow
 fastfetch
 

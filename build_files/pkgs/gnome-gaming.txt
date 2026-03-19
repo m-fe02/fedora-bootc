@@ -2,6 +2,9 @@
 adw-gtk3-theme
 gnome-tweaks
 
+# Gaming
+steam
+
 # Core CLI Tools
 neovim
 distrobox

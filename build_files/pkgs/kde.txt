@@ -1,6 +1,3 @@
-# Gaming
-steam
-
 # Core Tools
 neovim
 distrobox
