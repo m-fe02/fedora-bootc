@@ -18,8 +18,8 @@ mkdir -p /etc/pki/containers
 cp /ctx/cosign.pub /etc/pki/containers/cosign.pub
 
 # Persistence & Management Scripts
-cp /ctx/scripts/seal-os.sh /usr/bin/seal-os
-cp /ctx/scripts/als /usr/bin/als
+cp /ctx/files/bin/seal-os.sh /usr/bin/seal-os
+cp /ctx/files/bin/als /usr/bin/als
 chmod +x /usr/bin/seal-os
 chmod +x /usr/bin/als
 
