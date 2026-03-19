@@ -10,22 +10,40 @@ You can switch your OS to one of the Adamant Linux images using the `bootc` comm
 
 **Warning:** This will replace your current operating system with the selected Adamant Linux image.
 
-### Silverblue (GNOME)
+### Adamant Linux GNOME
 
 ```bash
 sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:gnome
 ```
 
-### Kinoite (KDE)
+### Adamant Linux GNOME (Gaming)
+
+```bash
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:gnome-gaming
+```
+
+### Adamant Linux KDE
 
 ```bash
 sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:kde
 ```
 
-### Cosmic Atomic (Cosmic)
+### Adamant Linux KDE (Gaming)
+
+```bash
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:kde-gaming
+```
+
+### Adamant Linux Cosmic
 
 ```bash
 sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:cosmic
+```
+
+### Adamant Linux Cosmic (Gaming)
+
+```bash
+sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:cosmic-gaming
 ```
 
 ## Post-Installation Utilities
@@ -56,9 +74,12 @@ als [variant | command]
 
 **Variants:**
 
-*   `cosmic`: Switch to the Cosmic Atomic variant.
-*   `gnome`: Switch to the Silverblue (GNOME) variant.
-*   `kde`: Switch to the Kinoite (KDE) variant.
+*   `cosmic`: Switch to the Adamant Linux Cosmic variant.
+*   `cosmic-gaming`: Switch to the Adamant Linux Cosmic (Gaming) variant.
+*   `gnome`: Switch to the Adamant Linux GNOME variant.
+*   `gnome-gaming`: Switch to the Adamant Linux GNOME (Gaming) variant.
+*   `kde`: Switch to the Adamant Linux KDE variant.
+*   `kde-gaming`: Switch to the Adamant Linux KDE (Gaming) variant.
 
 **Commands:**
 
