@@ -8,7 +8,7 @@ mkdir -p /usr/share/adamant
 
 # Create the ASCII art file
 cat <<EOF > /usr/share/adamant/ascii
-\e[31m                                              ...                                                    
+                                                    ...                                                    
                                                  ..','',,..                                                 
                                               ..',,,,..,,,,,..                                              
                                            ..',,,,,,,..,,,,,,,'..                                           
@@ -42,8 +42,7 @@ cat <<EOF > /usr/share/adamant/ascii
                                       .',,,,,,,,,,,,,,,,,,,,,,,,,,,,'.                                      
                                            .',,,,,,,,,,,,,,,,,,,'.                                          
                                                .',,,,,,,,,,,.                                               
-                                                   .,,,,'.                                                                                                                                                              
-\e[0m
+                                                   .,,,,'.
 EOF
 
 # Create the Global Configuration
