@@ -7,7 +7,7 @@ echo "Configuring Fastfetch Presentation..."
 mkdir -p /usr/share/adamant
 
 # Create the ASCII art file
-cp ascii_art.txt /usr/share/adamant/ascii
+cp /ctx/system/branding/ascii_art.txt /usr/share/adamant/ascii
 
 # Copy the Fastfetch configuration
 mkdir -p /etc/fastfetch
