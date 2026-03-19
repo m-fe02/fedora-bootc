@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Simplified Initramfs Regeneration for HackPod OS
 
-set -eoux pipefail
+set -euo pipefail
 
 echo "INFO: Regenerating Initramfs for all installed kernels."
 
@@ -44,7 +44,6 @@ for kernel_path in "${KERNEL_PATHS[@]}"; do
     "${DRACUT}" --no-hostonly \
         --kver "${kernel_version}" \
         --reproducible \
-        -v \
         --add ostree \
         --force "${initramfs_image}"
 
