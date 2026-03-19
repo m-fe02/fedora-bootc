@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   build-and-push:
+    name: build-and-push (${{ matrix.base_image }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
