@@ -1,3 +1,6 @@
+# Gaming
+steam
+
 # Core CLI Tools
 ark
 neovim

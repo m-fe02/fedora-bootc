@@ -12,10 +12,10 @@ FROM quay.io/fedora-ostree-desktops/${BASE_IMAGE_NAME}:${FEDORA_MAJOR_VERSION}
 ARG DESKTOP_ENV
 ENV DESKTOP_ENV=${DESKTOP_ENV}
 
-RUN --mount=type=bind,from=ctx,src=/,dst=/ctx \
-    --mount=type=cache,target=/var/cache \
-    --mount=type=cache,target=/var/log \
-    --mount=type=tmpfs,target=/tmp \
+RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
     bash /ctx/scripts/install.sh && \
     bash /ctx/scripts/post-install.sh
 

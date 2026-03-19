@@ -9,6 +9,10 @@ REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
 # Variant specific (cosmic, kde, or gnome)
 VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}.txt" | xargs)
 
+# Add RPM-Fusion
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+               https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 # Execute Transaction
 dnf upgrade -y --exclude=kernel*
 
@@ -19,6 +23,9 @@ fi
 
 # Install common and variant packages together
 dnf install -y $VARIANT_INSTALLS
+
+# Install CachyOS Kernel
+bash /ctx/scripts/install-cachyos-kernel.sh
 
 # Final Cleanup
 dnf autoremove -y

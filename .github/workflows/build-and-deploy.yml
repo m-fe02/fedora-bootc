@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - gaming-images
   schedule:
     - cron: '0 6 * * 6'
   workflow_dispatch:
