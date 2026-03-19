@@ -47,7 +47,7 @@ if [ "$GAMING" = "true" ]; then
 fi
 
 # Execute Transaction
-dnf upgrade -y --exclude=kernel*
+dnf upgrade -y --exclude=kernel*,dracut*
 
 # Remove first to prevent conflicts
 if [ -n "$REMOVALS" ]; then
