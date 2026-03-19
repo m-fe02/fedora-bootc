@@ -14,9 +14,11 @@ if [ "$GAMING" = "true" ]; then
 fi
 VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}${GAMING_SUFFIX}.txt" | xargs)
 
-# Add RPM-Fusion
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-               https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# Optionally add RPM Fusion (needed for gaming packages)
+if [ "$GAMING" = "true" ]; then
+    dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+                   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+fi
 
 # Execute Transaction
 dnf upgrade -y --exclude=kernel*
