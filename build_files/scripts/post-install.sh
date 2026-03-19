@@ -22,3 +22,6 @@ cp /ctx/scripts/seal-os.sh /usr/bin/seal-os
 cp /ctx/scripts/als /usr/bin/als
 chmod +x /usr/bin/seal-os
 chmod +x /usr/bin/als
+
+# Final cleanup to keep the resulting container image clean
+bash /ctx/scripts/cleanup-container.sh
