@@ -10,14 +10,26 @@ if [ -z "${DESKTOP_ENV}" ]; then
     exit 1
 fi
 
-REMOVALS=$(grep -v '^#' /ctx/files/scripts/pkgs/remove.txt | xargs)
+# Determine where the build context is mounted (older builds used /ctx/scripts, newer use /ctx/files/scripts)
+CTX_BASE="/ctx/files"
+if [ ! -d "$CTX_BASE" ]; then
+    CTX_BASE="/ctx"
+fi
+
+PKG_DIR="$CTX_BASE/scripts/pkgs"
+if [ ! -d "$PKG_DIR" ]; then
+    echo "ERROR: package directory not found: $PKG_DIR" >&2
+    exit 1
+fi
+
+REMOVALS=$(grep -v '^#' "$PKG_DIR/remove.txt" | xargs)
 # Variant specific (cosmic, kde, or gnome) + optional gaming variant
 GAMING=${GAMING:-false}
 GAMING_SUFFIX=""
 if [ "$GAMING" = "true" ]; then
     GAMING_SUFFIX="-gaming"
 fi
-PKG_FILE="/ctx/files/scripts/pkgs/${DESKTOP_ENV}${GAMING_SUFFIX}.txt"
+PKG_FILE="$PKG_DIR/${DESKTOP_ENV}${GAMING_SUFFIX}.txt"
 if [ ! -f "$PKG_FILE" ]; then
     echo "ERROR: package list not found: $PKG_FILE" >&2
     exit 1
