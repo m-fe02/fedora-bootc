@@ -1,0 +1,13 @@
+NAME="Adamant Linux"
+VERSION="44"
+ID=adamant
+ID_LIKE=fedora
+VERSION_ID=44
+PRETTY_NAME="Adamant Linux (Atomic)"
+ANSI_COLOR="0;34"
+CPE_NAME="cpe:/o:adamant:adamant"
+HOME_URL="https://github.com/m-fe02/Adamant-Linux"
+VARIANT="Custom BootC Image"
+VARIANT_ID="bootc"
+BUILD_ID=$(date +%Y%m%d)
+LOGO="adamant"

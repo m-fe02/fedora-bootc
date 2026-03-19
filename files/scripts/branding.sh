@@ -9,65 +9,16 @@ mkdir -p /usr/share/adamant
 # Create the ASCII art file
 cp ascii_art.txt /usr/share/adamant/ascii
 
-# Create the Global Configuration
+# Copy the Fastfetch configuration
 mkdir -p /etc/fastfetch
-cat <<EOF > /etc/fastfetch/config.jsonc
-{
-    "\$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema_json",
-    "logo": {
-        "source": "/usr/share/adamant/ascii",
-        "type": "file",
-        "padding": {
-            "top": 2,
-            "right": 4
-        }
-    },
-    "modules": [
-        "title",
-        "separator",
-        "os",
-        "host",
-        "kernel",
-        "uptime",
-        "packages",
-        "shell",
-        "display",
-        "de",
-        "wm",
-        "terminal",
-        "cpu",
-        "gpu",
-        "memory",
-        "disk",
-        "localip",
-        "battery",
-        "locale",
-        "break",
-        "colors"
-    ]
-}
-EOF
+cp /ctx/system/branding/fastfetch.jsonc /etc/fastfetch/config.jsonc
 
 echo "Fastfetch setup complete."
 
 echo "Applying Adamant Linux Branding..."
 
 # Identity Update
-cat <<EOF > /etc/os-release
-NAME="Adamant Linux"
-VERSION="44"
-ID=adamant
-ID_LIKE=fedora
-VERSION_ID=44
-PRETTY_NAME="Adamant Linux (Atomic)"
-ANSI_COLOR="0;34"
-CPE_NAME="cpe:/o:adamant:adamant"
-HOME_URL="https://github.com/m-fe02/Adamant-Linux"
-VARIANT="Custom BootC Image"
-VARIANT_ID="bootc"
-BUILD_ID=$(date +%Y%m%d)
-LOGO="adamant"
-EOF
+cp /ctx/system/branding/os-release /etc/os-release
 
 # --- LOGO HIJACK SECTION START ---
 echo "Applying System Logo Hijacks..."
