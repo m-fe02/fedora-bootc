@@ -18,8 +18,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
-    bash /ctx/scripts/install.sh && \
-    bash /ctx/scripts/post-install.sh
+    bash /ctx/scripts/00-setup.sh
 
 RUN rm -rf /opt && ln -s /var/opt /opt && \
     systemctl set-default graphical.target
