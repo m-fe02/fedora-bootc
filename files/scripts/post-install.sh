@@ -3,15 +3,15 @@ set -ex
 
 # Kernel Arguments (Silent Boot)
 mkdir -p /usr/lib/bootc/kargs.d/
-cp /ctx/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
+cp /ctx/files/system/karg/10-silent-boot.toml /usr/lib/bootc/kargs.d/10-silent-boot.toml
 
 # Run the external branding/regenerate-initramfs scripts from the context
 bash /ctx/scripts/branding.sh
 bash /ctx/scripts/regenerate-initramfs.sh
 
 # Security & Signing Policy
-cp /ctx/system/policy.json /etc/containers/policy.json
-cp /ctx/system/cosign.yaml /etc/containers/registries.d/cosign.yaml
+cp /ctx/files/scripts/setup_files/policy.json /etc/containers/policy.json
+cp /ctx/files/system/cosign.yaml /etc/containers/registries.d/cosign.yaml
 
 # Public key for cosign validation
 mkdir -p /etc/pki/containers

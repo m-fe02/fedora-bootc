@@ -5,14 +5,14 @@ set -ex
 curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
 # Prepare Package Lists
-REMOVALS=$(grep -v '^#' /ctx/pkgs/remove.txt | xargs)
+REMOVALS=$(grep -v '^#' /ctx/files/scripts/pkgs/remove.txt | xargs)
 # Variant specific (cosmic, kde, or gnome) + optional gaming variant
 GAMING=${GAMING:-false}
 GAMING_SUFFIX=""
 if [ "$GAMING" = "true" ]; then
     GAMING_SUFFIX="-gaming"
 fi
-VARIANT_INSTALLS=$(grep -v '^#' "/ctx/pkgs/${DESKTOP_ENV}${GAMING_SUFFIX}.txt" | xargs)
+VARIANT_INSTALLS=$(grep -v '^#' "/ctx/files/scripts/pkgs/${DESKTOP_ENV}${GAMING_SUFFIX}.txt" | xargs)
 
 # Optionally add RPM Fusion (needed for gaming packages)
 if [ "$GAMING" = "true" ]; then
