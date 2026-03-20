@@ -44,7 +44,8 @@ for kernel_path in "${KERNEL_PATHS[@]}"; do
     "${DRACUT}" --no-hostonly \
         --kver "${kernel_version}" \
         --reproducible \
-        --add "ostree bash coreutils dracut-systemd" \
+        --add "ostree bash dracut-systemd" \
+        --install "date" \
         --force "${initramfs_image}"
 
     chmod 0600 "${initramfs_image}"
