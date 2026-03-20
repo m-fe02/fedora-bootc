@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# Simplified Initramfs Regeneration for HackPod OS
+# Simplified Initramfs Regeneration for Adamant Linux
 
 set -euo pipefail
 
@@ -44,7 +44,7 @@ for kernel_path in "${KERNEL_PATHS[@]}"; do
     "${DRACUT}" --no-hostonly \
         --kver "${kernel_version}" \
         --reproducible \
-        --add ostree \
+        --add "ostree bash coreutils dracut-systemd" \
         --force "${initramfs_image}"
 
     chmod 0600 "${initramfs_image}"
