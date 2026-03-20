@@ -13,11 +13,6 @@ rm -rf /var/lib/dnf /var/log/dnf5.log
 
 echo "INFO: Running container cleanup..."
 
-# Clean package manager cache
-if command -v dnf >/dev/null 2>&1; then
-    dnf clean all || true
-fi
-
 # Remove offline kernel artifacts (lint expects /boot empty for containers)
 rm -rf /boot/* /boot/.* 2>/dev/null || true
 
