@@ -13,37 +13,37 @@ You can switch your OS to one of the Adamant Linux images using the `bootc` comm
 ### Adamant Linux GNOME
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:gnome
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:gnome
 ```
 
 ### Adamant Linux GNOME (Gaming)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:gnome-gaming
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:gnome-gaming
 ```
 
 ### Adamant Linux KDE
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:kde
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:kde
 ```
 
 ### Adamant Linux KDE (Gaming)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:kde-gaming
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:kde-gaming
 ```
 
 ### Adamant Linux Cosmic
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:cosmic
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:cosmic
 ```
 
 ### Adamant Linux Cosmic (Gaming)
 
 ```bash
-sudo bootc switch --reboot ghcr.io/m-fe02/adamant-linux:cosmic-gaming
+sudo bootc switch ghcr.io/m-fe02/adamant-linux:cosmic-gaming
 ```
 
 ## Post-Installation Utilities
