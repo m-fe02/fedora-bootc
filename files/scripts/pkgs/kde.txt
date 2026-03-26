@@ -1,6 +1,7 @@
 # Core Tools
 neovim
 distrobox
+dfu-util
 gnome-disk-utility
 stow
 fastfetch
