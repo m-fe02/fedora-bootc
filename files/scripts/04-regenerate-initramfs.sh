@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# Simplified Initramfs Regeneration for Adamant Linux
+# Simplified Initramfs Regeneration for Fe02-OS
 
 set -euo pipefail
 

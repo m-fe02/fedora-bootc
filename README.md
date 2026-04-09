@@ -1,58 +1,58 @@
-# Adamant Linux
+# Fe02-OS
 
-This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as Adamant Linux.
+This project provides custom OS images based on [Fedora bootC](https://docs.fedoraproject.org/en-US/fedora-coreos/bootc/), branded as Fe02-OS.
 
 The images are built automatically using GitHub Actions and are available on `ghcr.io`.
 
 ## Getting Started
 
-You can switch your OS to one of the Adamant Linux images using the `bootc` command.
+You can switch your OS to one of the Fe02-OS images using the `bootc` command.
 
-**Warning:** This will replace your current operating system with the selected Adamant Linux image.
+**Warning:** This will replace your current operating system with the selected Fe02-OS image.
 
-### Adamant Linux GNOME
+### Fe02-OS GNOME
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:gnome
+sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome
 ```
 
-### Adamant Linux GNOME (Gaming)
+### Fe02-OS GNOME (Gaming)
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:gnome-gaming
+sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome-gaming
 ```
 
-### Adamant Linux KDE
+### Fe02-OS KDE
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:kde
+sudo bootc switch ghcr.io/m-fe02/fe02-os:kde
 ```
 
-### Adamant Linux KDE (Gaming)
+### Fe02-OS KDE (Gaming)
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:kde-gaming
+sudo bootc switch ghcr.io/m-fe02/fe02-os:kde-gaming
 ```
 
-### Adamant Linux Cosmic
+### Fe02-OS Cosmic
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:cosmic
+sudo bootc switch ghcr.io/m-fe02/fe02-os:cosmic
 ```
 
-### Adamant Linux Cosmic (Gaming)
+### Fe02-OS Cosmic (Gaming)
 
 ```bash
-sudo bootc switch ghcr.io/m-fe02/adamant-linux:cosmic-gaming
+sudo bootc switch ghcr.io/m-fe02/fe02-os:cosmic-gaming
 ```
 
 ## Post-Installation Utilities
 
-After you have switched to a Adamant Linux image and rebooted, there are two utilities available to you: `seal-os` and `als`.
+After you have switched to a Fe02-OS image and rebooted, there are two utilities available to you: `seal-os` and `als`.
 
 ### `seal-os`
 
-The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/adamant-linux` repository.
+The `seal-os` utility enables signature verification for OS updates. This ensures that your system will only accept signed updates from the `ghcr.io/m-fe02/fe02-os` repository.
 
 To seal your system, run the following command:
 
@@ -62,9 +62,9 @@ sudo seal-os
 
 You will be prompted to reboot after the process is complete.
 
-### `als` (Adamant Linux Switcher)
+### `als` (Fe02-OS Switcher)
 
-The `als` utility is a simple script to switch between the different Adamant Linux desktop variants.
+The `als` utility is a simple script to switch between the different Fe02-OS desktop variants.
 
 **Usage:**
 
@@ -74,12 +74,12 @@ als [variant | command]
 
 **Variants:**
 
-*   `cosmic`: Switch to the Adamant Linux Cosmic variant.
-*   `cosmic-gaming`: Switch to the Adamant Linux Cosmic (Gaming) variant.
-*   `gnome`: Switch to the Adamant Linux GNOME variant.
-*   `gnome-gaming`: Switch to the Adamant Linux GNOME (Gaming) variant.
-*   `kde`: Switch to the Adamant Linux KDE variant.
-*   `kde-gaming`: Switch to the Adamant Linux KDE (Gaming) variant.
+*   `cosmic`: Switch to the Fe02-OS Cosmic variant.
+*   `cosmic-gaming`: Switch to the Fe02-OS Cosmic (Gaming) variant.
+*   `gnome`: Switch to the Fe02-OS GNOME variant.
+*   `gnome-gaming`: Switch to the Fe02-OS GNOME (Gaming) variant.
+*   `kde`: Switch to the Fe02-OS KDE variant.
+*   `kde-gaming`: Switch to the Fe02-OS KDE (Gaming) variant.
 
 **Commands:**
 

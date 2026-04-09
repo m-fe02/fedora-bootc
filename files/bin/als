@@ -1,10 +1,10 @@
 #!/bin/bash
-# als: Adamant Linux Variant Switcher
+# als: Fe02-OS Variant Switcher
 
-REGISTRY="ghcr.io/m-fe02/adamant-linux"
+REGISTRY="ghcr.io/m-fe02/fe02-os"
 
 function show_usage() {
-    echo "Adamant Linux Switcher"
+    echo "Fe02-OS Switcher"
     echo "Usage: als [variant | command]"
     echo ""
     echo "Variants:"
@@ -62,7 +62,7 @@ esac
 
 FULL_IMAGE_PATH="${REGISTRY}:${TAG}"
 
-echo "🔄 Preparing switch to Adamant Linux ($TAG)..."
+echo "🔄 Preparing switch to Fe02-OS ($TAG)..."
 sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
 
 if [ $? -eq 0 ]; then

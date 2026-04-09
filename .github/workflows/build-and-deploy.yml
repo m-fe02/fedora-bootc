@@ -71,13 +71,13 @@ jobs:
             --build-arg BASE_IMAGE_NAME=${{ matrix.base_image }} \
             --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
             --build-arg GAMING=${{ matrix.gaming }} \
-            --tag ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }} \
+            --tag ghcr.io/m-fe02/fe02-os:${{ matrix.tag }} \
             -f Containerfile
-          podman push ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }}
+          podman push ghcr.io/m-fe02/fe02-os:${{ matrix.tag }}
           podman system prune -a -f
 
       - name: 'Sign Image'
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/adamant-linux:${{ matrix.tag }}
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/m-fe02/fe02-os:${{ matrix.tag }}

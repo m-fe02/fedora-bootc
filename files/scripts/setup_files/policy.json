@@ -4,7 +4,7 @@
     ],
     "transports": {
         "docker": {
-            "ghcr.io/m-fe02/adamant-linux": [
+            "ghcr.io/m-fe02/fe02-os": [
                 {
                     "type": "sigstoreSigned",
                     "keyPath": "/etc/pki/containers/cosign.pub",

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-# Adamant Linux Build Orchestrator
+# Fe02-OS Build Orchestrator
 # Executes build steps in numbered order for clear pipeline flow
 
 # Determine where the build context is mounted (older builds used /ctx/scripts, newer use /ctx/files/scripts)
@@ -12,7 +12,7 @@ fi
 
 BUILD_SETUP_DIR="$CTX_BASE/scripts"
 
-echo "=== Adamant Linux Build Pipeline ==="
+echo "=== Fe02-OS Build Pipeline ==="
 
 echo "Step 1: Upgrading packages..."
 bash "$BUILD_SETUP_DIR/01-upgrade-packages.sh"
