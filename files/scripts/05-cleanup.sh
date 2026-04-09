@@ -1,26 +1,18 @@
 #!/bin/bash
 set -ex
 
-# Step 5: Final cleanup
-
-# Package manager cleanup
-dnf autoremove -y
-dnf clean all
-rm -rf /var/lib/dnf /var/log/dnf5.log
-
-# Container cleanup artifacts that should not be part of the final container image.
-# This is intended to run late in the build (before bootc container lint).
-
 echo "INFO: Running container cleanup..."
 
-# Remove offline kernel artifacts (lint expects /boot empty for containers)
+dnf clean all
+rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/libdnf5
+
 rm -rf /boot/* /boot/.* 2>/dev/null || true
 
-# Clear runtime directories (should be empty in container images)
-rm -rf /run/* /tmp/* || true
+find /var/log -type f -delete
+mkdir -p /var/log/journal
+chmod 2755 /var/log/journal
+chown root:systemd-journal /var/log/journal
 
-# Remove extra state directories that typically exist only at runtime
-# and are not managed by tmpfiles.d (prevents bootc lint warnings)
 rm -rf \
     /var/lib/containers \
     /var/lib/rpm-state \
@@ -29,21 +21,16 @@ rm -rf \
     /var/lib/selinux/targeted/seusers \
     /var/lib/selinux/targeted/commit_num || true
 
-# Remove most /var content except log/cache
-find /var/* -maxdepth 0 -type d -not -name "log" -not -name "cache" -exec rm -rvf {} + || true
-find /var/cache/* -maxdepth 0 -type d -not -name "libdnf5" -not -name "rpm-ostree" -exec rm -rvf {} + || true
-rm -rf /var/log/* || true
+rm -rf /run/* /tmp/* /var/tmp/* || true
 
-# Reset resolv.conf to avoid bind-mount artifacts
-rm -f /etc/resolv.conf
-touch /etc/resolv.conf
-
-# Remove skeleton state that shouldn't be shipped
-rm -rf /etc/skel/.mozilla /etc/skel/.config/user-tmpfiles.d || true
-
-# Ensure required directories exist and are empty
 mkdir -p /run /tmp /var/tmp
 chmod 0755 /run /tmp
 chmod 1777 /var/tmp
+
+rm -f /etc/resolv.conf
+touch /etc/resolv.conf
+rm -rf /etc/skel/.mozilla /etc/skel/.config/user-tmpfiles.d || true
+
+systemd-tmpfiles --create --boot --root=/ || true
 
 echo "INFO: Container cleanup complete."
