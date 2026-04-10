@@ -1,5 +1,5 @@
 [General]
-LogoPath=fe02-logo-symbolic
+LogoPath=fe02-logo-gray
 Website=https://github.com/fe02/Fe02-OS
 UseOSReleaseVersion=true
 ShowBuild=true
