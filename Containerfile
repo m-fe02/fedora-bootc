@@ -6,6 +6,7 @@ ARG GAMING=false
 FROM scratch AS ctx
 COPY files /
 COPY cosign.pub /
+COPY ENVAR /
 
 FROM quay.io/fedora-ostree-desktops/${BASE_IMAGE_NAME}:${FEDORA_MAJOR_VERSION}
 
