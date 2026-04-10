@@ -25,7 +25,7 @@ echo "Applying System Logo Hijacks..."
 
 # Plymouth Logo
 mkdir -p /usr/share/plymouth/themes/spinner/
-cp /ctx/system/branding/crocus_martis.svg /usr/share/plymouth/themes/spinner/watermark.png
+cp /ctx/system/branding/crocus_martis_white.svg /usr/share/plymouth/themes/spinner/watermark.png
 
 # Distro specific logo hijacks
     PIXMAP_DIR="/usr/share/pixmaps"
