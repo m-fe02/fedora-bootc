@@ -23,13 +23,16 @@ bash "$BUILD_SETUP_DIR/06-theming.sh"
 echo "Step 8: Applying tweaks and fixes..."
 bash "$BUILD_SETUP_DIR/11-tweaks-and-fixes.sh"
 
-echo "Step 9: Handling security and signing..."
+echo "Step 9: Applying image info..."
+bash "$BUILD_SETUP_DIR/55-image-info.sh"
+
+echo "Step 10: Handling security and signing..."
 bash "$BUILD_SETUP_DIR/56-signing.sh"
 
-echo "Step 10: Regenerating initramfs..."
+echo "Step 11: Regenerating initramfs..."
 bash "$BUILD_SETUP_DIR/57-initramfs.sh"
 
-echo "Step 11: Running cleanup..."
+echo "Step 12: Running cleanup..."
 bash "$BUILD_SETUP_DIR/58-post-setup.sh"
 
 echo "=== Build Complete ==="

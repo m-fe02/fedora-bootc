@@ -15,6 +15,11 @@ cp /usr/share/fastfetch/presets/fe02/fe02-fastfetch.jsonc /etc/fastfetch/config.
 
 echo "Fastfetch setup complete."
 
+# Set Plymouth theme
+plymouth-set-default-theme spinner
+
+echo "Plymouth theme set."
+
 echo "Purging unwanted desktop entries..."
 
 FORBIDDEN_APP_ENTRIES=(
