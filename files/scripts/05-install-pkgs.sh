@@ -24,10 +24,12 @@ if [ ! -f "$PKG_FILE" ]; then
     exit 1
 fi
 
+DNF_INSTALL=(dnf --setopt=install_weak_deps=False install -y)
+
 # Install yq if not present (for YAML parsing)
 if ! command -v yq &> /dev/null; then
     echo "Installing yq for YAML parsing..."
-    dnf install -y yq
+    "${DNF_INSTALL[@]}" yq
 fi
 
 # Parse packages from YAML
@@ -51,7 +53,7 @@ if [ "$GAMING" = "true" ]; then
     GAMING_PKGS=$(yq -r ".packages.variants.${DESKTOP_ENV}.gaming[]" "$PKG_FILE" | xargs)
     
     # Install RPM Fusion for gaming packages
-    dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    "${DNF_INSTALL[@]}" https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
                    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 fi
 
@@ -66,7 +68,7 @@ fi
 
 # Install common and variant packages together
 echo "Installing variant packages..."
-dnf install -y $VARIANT_INSTALLS
+"${DNF_INSTALL[@]}" $VARIANT_INSTALLS
 
 # Install CachyOS Kernel
 bash /ctx/scripts/install-cachyos-kernel.sh
