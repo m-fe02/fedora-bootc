@@ -21,14 +21,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - base_image: silverblue
-            desktop: gnome
-            tag: gnome
-            gaming: false
-          - base_image: silverblue
-            desktop: gnome
-            tag: gnome-gaming
-            gaming: true
           - base_image: kinoite
             desktop: kde
             tag: kde

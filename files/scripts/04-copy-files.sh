@@ -8,7 +8,7 @@ cp -drf /ctx/system/* /
 
 # Install logo aliases into icon-theme paths used by KDE/Freedesktop consumers.
 ICON_SRC="/usr/share/pixmaps/fe02-logo.svg"
-ICON_SYMBOLIC_SRC="/usr/share/pixmaps/fe02-logo-white.svg"
+ICON_SYMBOLIC_SRC="/usr/share/pixmaps/fe02-logo-symbolic.svg"
 ICON_DIRS=(
 	"/usr/share/icons/hicolor/scalable/apps"
 	"/usr/share/icons/hicolor/scalable/places"
@@ -27,6 +27,7 @@ done
 
 for dir in "${ICON_SYMBOLIC_DIRS[@]}"; do
 	mkdir -p "${dir}"
+	cp -f "${ICON_SYMBOLIC_SRC}" "${dir}/fe02-logo-symbolic.svg"
 	cp -f "${ICON_SYMBOLIC_SRC}" "${dir}/distributor-logo-symbolic.svg"
 done
 
@@ -40,12 +41,16 @@ echo "Verifying branding assets in image root"
 BRANDING_PATHS=(
 	"/usr/share/pixmaps/fe02-logo.svg"
 	"/usr/share/pixmaps/fe02-logo-white.svg"
+	"/usr/share/pixmaps/fe02-logo-symbolic.svg"
 	"/usr/share/pixmaps/distributor-logo.svg"
 	"/usr/share/icons/hicolor/scalable/apps/fe02-logo.svg"
 	"/usr/share/icons/hicolor/scalable/apps/distributor-logo.svg"
 	"/usr/share/icons/hicolor/scalable/places/distributor-logo.svg"
 	"/usr/share/icons/hicolor/symbolic/apps/distributor-logo-symbolic.svg"
+	"/usr/share/icons/hicolor/symbolic/apps/fe02-logo-symbolic.svg"
 	"/usr/share/icons/hicolor/symbolic/places/distributor-logo-symbolic.svg"
+	"/usr/share/icons/hicolor/symbolic/places/fe02-logo-symbolic.svg"
+	"/etc/xdg/kcm-about-distrorc"
 	"/usr/share/plymouth/themes/spinner/watermark.png"
 	"/usr/share/fastfetch/presets/fe02/fe02-ascii.txt"
 	"/usr/share/fastfetch/presets/fe02/fe02-fastfetch.jsonc"
