@@ -35,6 +35,7 @@ packages:
       base:
         - adw-gtk3-theme
         - gnome-tweaks
+        - gnome-shell-extension-gsconnect
         - neovim
         - distrobox
         - stow
