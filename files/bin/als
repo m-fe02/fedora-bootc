@@ -1,15 +1,17 @@
 #!/bin/bash
-# fe02: Fe02-OS Variant Switcher
+# als: Fe02-OS Variant Switcher
 
 REGISTRY="ghcr.io/m-fe02/fe02-os"
 
 function show_usage() {
     echo "Fe02-OS Switcher"
-    echo "Usage: fe02 [variant | command]"
+    echo "Usage: als [variant | command]"
     echo ""
     echo "Variants:"
     echo "  cosmic        -> :cosmic"
     echo "  cosmic-gaming -> :cosmic-gaming"
+    echo "  gnome         -> :gnome"
+    echo "  gnome-gaming  -> :gnome-gaming"
     echo "  kde           -> :kde"
     echo "  kde-gaming    -> :kde-gaming"
     echo ""
@@ -38,6 +40,12 @@ case "$1" in
         ;;
     cosmic-gaming)
         TAG="cosmic-gaming"
+        ;;
+    gnome)
+        TAG="gnome"
+        ;;
+    gnome-gaming)
+        TAG="gnome-gaming"
         ;;
     kde)
         TAG="kde"

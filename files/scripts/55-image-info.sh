@@ -10,7 +10,6 @@ declare -A IMAGE_INFO=(
     ["ID_LIKE"]="linux"
     ["LOGO"]="fe02-logo-gray"
     ["VERSION"]="Fe02-OS"
-    ["BUILD_ID"]="rolling"
     ["IMAGE_ID"]="fe02"
     ["VARIANT"]="Fe02-OS"
     ["VARIANT_ID"]="fe02"
@@ -47,9 +46,9 @@ for key in "${!IMAGE_INFO[@]}"; do
 done
 
 echo "Checking for forbidden distro branding in ${OS_RELEASE_FILE}"
-if grep -Eiq 'fedora|kinoite|cosmic( |-)?atomic' "${OS_RELEASE_FILE}"; then
+if grep -Eiq 'fedora|kinoite|silverblue|cosmic( |-)?atomic' "${OS_RELEASE_FILE}"; then
     echo "Found forbidden distro branding references:"
-    grep -Ein 'fedora|kinoite|cosmic( |-)?atomic' "${OS_RELEASE_FILE}"
+    grep -Ein 'fedora|kinoite|silverblue|cosmic( |-)?atomic' "${OS_RELEASE_FILE}"
     exit 1
 fi
 

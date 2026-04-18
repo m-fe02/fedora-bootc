@@ -10,6 +10,18 @@ You can switch your OS to one of the Fe02-OS images using the `bootc` command.
 
 **Warning:** This will replace your current operating system with the selected Fe02-OS image.
 
+### Fe02-OS GNOME
+
+```bash
+sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome
+```
+
+### Fe02-OS GNOME (Gaming)
+
+```bash
+sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome-gaming
+```
+
 ### Fe02-OS KDE
 
 ```bash
@@ -36,7 +48,7 @@ sudo bootc switch ghcr.io/m-fe02/fe02-os:cosmic-gaming
 
 ## Post-Installation Utilities
 
-After you have switched to a Fe02-OS image and rebooted, there are two utilities available to you: `seal-os` and `fe02`.
+After you have switched to a Fe02-OS image and rebooted, there are two utilities available to you: `seal-os` and `als`.
 
 ### `seal-os`
 
@@ -50,20 +62,22 @@ sudo seal-os
 
 You will be prompted to reboot after the process is complete.
 
-### `fe02` (Fe02-OS Switcher)
+### `als` (Fe02-OS Switcher)
 
-The `fe02` utility is a simple script to switch between the different Fe02-OS desktop variants.
+The `als` utility is a simple script to switch between the different Fe02-OS desktop variants.
 
 **Usage:**
 
 ```bash
-fe02 [variant | command]
+als [variant | command]
 ```
 
 **Variants:**
 
 *   `cosmic`: Switch to the Fe02-OS Cosmic variant.
 *   `cosmic-gaming`: Switch to the Fe02-OS Cosmic (Gaming) variant.
+*   `gnome`: Switch to the Fe02-OS GNOME variant.
+*   `gnome-gaming`: Switch to the Fe02-OS GNOME (Gaming) variant.
 *   `kde`: Switch to the Fe02-OS KDE variant.
 *   `kde-gaming`: Switch to the Fe02-OS KDE (Gaming) variant.
 
@@ -77,7 +91,7 @@ fe02 [variant | command]
 To switch to the Kinoite variant, run the following command:
 
 ```bash
-fe02 kde
+als kde
 ```
 
 You will be prompted to reboot after the switch is staged.
