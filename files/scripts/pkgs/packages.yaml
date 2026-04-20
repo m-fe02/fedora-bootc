@@ -28,6 +28,7 @@ packages:
         - stow
         - fastfetch
         - tailscale
+        - btop
       gaming:
         - steam
 
@@ -41,6 +42,7 @@ packages:
         - stow
         - fastfetch
         - tailscale
+        - btop
       gaming:
         - steam
 
@@ -53,5 +55,6 @@ packages:
         - stow
         - fastfetch
         - tailscale
+        - btop
       gaming:
         - steam
