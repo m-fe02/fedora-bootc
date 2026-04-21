@@ -48,7 +48,7 @@ sudo bootc switch ghcr.io/m-fe02/fe02-os:cosmic-gaming
 
 ## Post-Installation Utilities
 
-After you have switched to a Fe02-OS image and rebooted, there are two utilities available to you: `seal-os` and `als`.
+After you have switched to a Fe02-OS image and rebooted, there are two utilities available to you: `seal-os` and `fe02`.
 
 ### `seal-os`
 
@@ -62,14 +62,14 @@ sudo seal-os
 
 You will be prompted to reboot after the process is complete.
 
-### `als` (Fe02-OS Switcher)
+### `fe02` (Fe02-OS Switcher)
 
-The `als` utility is a simple script to switch between the different Fe02-OS desktop variants.
+The `fe02` utility is a simple script to switch between the different Fe02-OS desktop variants.
 
 **Usage:**
 
 ```bash
-als [variant | command]
+fe02 [variant | command]
 ```
 
 **Variants:**
@@ -91,7 +91,7 @@ als [variant | command]
 To switch to the Kinoite variant, run the following command:
 
 ```bash
-als kde
+fe02 kde
 ```
 
 You will be prompted to reboot after the switch is staged.

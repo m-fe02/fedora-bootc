@@ -1,11 +1,11 @@
 #!/bin/bash
-# als: Fe02-OS Variant Switcher
+# fe02: Fe02-OS Variant Switcher
 
 REGISTRY="ghcr.io/m-fe02/fe02-os"
 
 function show_usage() {
     echo "Fe02-OS Switcher"
-    echo "Usage: als [variant | command]"
+    echo "Usage: fe02 [variant | command]"
     echo ""
     echo "Variants:"
     echo "  cosmic        -> :cosmic"
