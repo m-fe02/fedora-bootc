@@ -8,7 +8,7 @@ curl -s -o /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fed
 
 # Validate input
 if [ -z "${DESKTOP_ENV}" ]; then
-    echo "ERROR: DESKTOP_ENV is not set; must be one of: gnome, kde, cosmic" >&2
+    echo "ERROR: DESKTOP_ENV is not set; must be one of: kde, cosmic" >&2
     exit 1
 fi
 

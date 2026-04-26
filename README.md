@@ -10,18 +10,6 @@ You can switch your OS to one of the Fe02-OS images using the `bootc` command.
 
 **Warning:** This will replace your current operating system with the selected Fe02-OS image.
 
-### Fe02-OS GNOME
-
-```bash
-sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome
-```
-
-### Fe02-OS GNOME (Gaming)
-
-```bash
-sudo bootc switch ghcr.io/m-fe02/fe02-os:gnome-gaming
-```
-
 ### Fe02-OS KDE
 
 ```bash
@@ -76,8 +64,6 @@ fe02 [variant | command]
 
 *   `cosmic`: Switch to the Fe02-OS Cosmic variant.
 *   `cosmic-gaming`: Switch to the Fe02-OS Cosmic (Gaming) variant.
-*   `gnome`: Switch to the Fe02-OS GNOME variant.
-*   `gnome-gaming`: Switch to the Fe02-OS GNOME (Gaming) variant.
 *   `kde`: Switch to the Fe02-OS KDE variant.
 *   `kde-gaming`: Switch to the Fe02-OS KDE (Gaming) variant.
 

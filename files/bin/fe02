@@ -10,8 +10,6 @@ function show_usage() {
     echo "Variants:"
     echo "  cosmic        -> :cosmic"
     echo "  cosmic-gaming -> :cosmic-gaming"
-    echo "  gnome         -> :gnome"
-    echo "  gnome-gaming  -> :gnome-gaming"
     echo "  kde           -> :kde"
     echo "  kde-gaming    -> :kde-gaming"
     echo ""
@@ -41,12 +39,6 @@ case "$1" in
     cosmic-gaming)
         TAG="cosmic-gaming"
         ;;
-    gnome)
-        TAG="gnome"
-        ;;
-    gnome-gaming)
-        TAG="gnome-gaming"
-        ;;
     kde)
         TAG="kde"
         ;;
@@ -66,7 +58,7 @@ echo "🔄 Preparing switch to Fe02-OS ($TAG)..."
 sudo bootc switch --transport registry "${FULL_IMAGE_PATH}"
 
 if [ $? -eq 0 ]; then
-    echo -e "\n✅ Switch staged. Your branding hijacks will be active after reboot."
+    echo -e "\n✅ Switch staged. Reboot to apply the new image."
     read -p "Reboot now? (y/N): " confirm
     [[ $confirm == [yY] ]] && sudo reboot
 else

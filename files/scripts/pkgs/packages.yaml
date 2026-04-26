@@ -8,15 +8,6 @@ packages:
     - firefox
     - firefox-langpacks
     - yelp
-    - gnome-tour
-    - gnome-system-monitor
-    - gnome-shell-extension-background-logo
-    - gnome-shell-extension-window-list
-    - gnome-shell-extension-places-menu
-    - gnome-shell-extension-launch-new-instance
-    - gnome-shell-extension-apps-menu
-    - gnome-shell-extension-common
-    - gnome-classic-session
 
   # Desktop environment variants
   variants:
@@ -31,19 +22,7 @@ packages:
         - btop
       gaming:
         - steam
-
-    gnome:
-      base:
-        - adw-gtk3-theme
-        - gnome-tweaks
-        - neovim
-        - distrobox
-        - stow
-        - fastfetch
-        - tailscale
-        - btop
-      gaming:
-        - steam
+        - ollama
 
     kde:
       base:
@@ -57,3 +36,4 @@ packages:
         - btop
       gaming:
         - steam
+        - ollama
