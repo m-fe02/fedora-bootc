@@ -31,19 +31,6 @@ rm -f /etc/resolv.conf
 touch /etc/resolv.conf
 rm -rf /etc/skel/.mozilla /etc/skel/.config/user-tmpfiles.d || true
 
-# Post-install logic for Ollama
-if command -v ollama &> /dev/null; then
-    echo "INFO: Ollama detected, configuring user and state directory..."
-    getent group ollama >/dev/null || groupadd -r ollama
-    getent passwd ollama >/dev/null || useradd -r -g ollama -d /var/lib/ollama -s /sbin/nologin ollama
-    mkdir -p /var/lib/ollama
-    chown -R ollama:ollama /var/lib/ollama
-    chmod 0750 /var/lib/ollama
-    if [ -x /sbin/restorecon ]; then
-        restorecon -R /var/lib/ollama || true
-    fi
-fi
-
 systemd-tmpfiles --create --boot --root=/ || true
 
 echo "INFO: Container cleanup complete."

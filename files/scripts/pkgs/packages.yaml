@@ -23,7 +23,6 @@ packages:
         - steam
         - lutris
         - mangohud
-        - ollama
 
     kde:
       base:
@@ -39,4 +38,3 @@ packages:
         - steam
         - lutris
         - mangohud
-        - ollama
