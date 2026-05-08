@@ -15,6 +15,7 @@ packages:
       base:
         - neovim
         - distrobox
+        - dfu-util
         - stow
         - fastfetch
         - tailscale
