@@ -1,41 +1,45 @@
 # Fe02-OS Package Management
-# Format: Define packages by desktop environment and gaming variant
-# The install script will merge base + gaming packages when GAMING=true
+# Build-time repos are ephemeral — set up before install, cleaned up after
+
+repos:
+  # Fetched via curl → /etc/yum.repos.d/<name>.repo, removed after install
+  url:
+    tailscale: "https://pkgs.tailscale.com/stable/fedora/tailscale.repo"
+  # dnf copr enable → disabled after install
+  copr: []
 
 packages:
-  # Packages to remove across all variants
   remove:
     - firefox
     - firefox-langpacks
     - yelp
 
-  # Desktop environment variants
+  # Installed for every variant
+  common:
+    - neovim
+    - distrobox
+    - dfu-util
+    - stow
+    - fastfetch
+    - tailscale
+    - btop
+
+  # Only variant-specific packages — common packages are not repeated here
   variants:
     cosmic:
-      base:
-        - neovim
-        - distrobox
-        - dfu-util
-        - stow
-        - fastfetch
-        - tailscale
-        - btop
-      gaming:
-        - steam
-        - lutris
-        - mangohud
-
+      packages: []
     kde:
-      base:
-        - neovim
-        - distrobox
-        - dfu-util
+      packages:
         - gnome-disk-utility
-        - stow
-        - fastfetch
-        - tailscale
-        - btop
-      gaming:
-        - steam
-        - lutris
-        - mangohud
+
+  gaming:
+    repos:
+      # Key = package name used for cleanup via `dnf remove`
+      rpm:
+        rpmfusion-free-release: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm"
+        rpmfusion-nonfree-release: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
+      copr: []
+    packages:
+      - steam
+      - lutris
+      - mangohud
