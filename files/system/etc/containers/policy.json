@@ -1,0 +1,22 @@
+{
+    "default": [
+        {
+            "type": "reject"
+        }
+    ],
+    "transports": {
+        "docker": {
+            "ghcr.io/m-fe02": [
+                {
+                    "type": "sigstoreSigned",
+                    "keyPath": "/etc/pki/containers/cosign.pub",
+                    "signedIdentity": {"type": "matchRepository"}
+                }
+            ],
+            "": [{"type": "insecureAcceptAnything"}]
+        },
+        "docker-daemon": {
+            "": [{"type": "insecureAcceptAnything"}]
+        }
+    }
+}
