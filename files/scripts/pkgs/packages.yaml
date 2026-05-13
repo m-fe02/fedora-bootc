@@ -25,7 +25,10 @@ packages:
     - btop
 
   # Only variant-specific packages — common packages are not repeated here
+  # DE is already provided by the base image
   variants:
+    gnome:
+      packages: []
     cosmic:
       packages: []
     kde:

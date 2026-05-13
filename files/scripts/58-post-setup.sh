@@ -21,16 +21,16 @@ rm -rf \
     /var/lib/selinux/targeted/seusers \
     /var/lib/selinux/targeted/commit_num || true
 
-rm -rf /run/* /tmp/* /var/tmp/* || true
-
-mkdir -p /run /tmp /var/tmp
-chmod 0755 /run /tmp
-chmod 1777 /var/tmp
-
 rm -f /etc/resolv.conf
 touch /etc/resolv.conf
 rm -rf /etc/skel/.mozilla /etc/skel/.config/user-tmpfiles.d || true
 
 systemd-tmpfiles --create --boot --root=/ || true
+
+rm -rf /run/* /tmp/* /var/tmp/* || true
+
+mkdir -p /run /tmp /var/tmp
+chmod 0755 /run /tmp
+chmod 1777 /var/tmp
 
 echo "INFO: Container cleanup complete."

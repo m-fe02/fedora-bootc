@@ -23,6 +23,9 @@ if ! command -v yq &> /dev/null; then
     "${DNF_INSTALL[@]}" yq
 fi
 
+# dnf5-plugins provides the copr subcommand, not present in the minimal base image
+dnf install -y dnf5-plugins
+
 copr_manage() {
     local action=$1; shift
     for copr in "$@"; do
@@ -49,11 +52,6 @@ VARIANT_PKGS=$(yq -r ".packages.variants.${DESKTOP_ENV}.packages[]?" "$PKG_FILE"
 if [ -z "$COMMON_PKGS" ]; then
     echo "ERROR: No common packages found" >&2
     exit 1
-fi
-
-if [ -n "$REMOVALS" ]; then
-    echo "Removing bloat packages..."
-    dnf remove -y $REMOVALS || true
 fi
 
 echo "Installing common and variant packages..."
@@ -84,6 +82,13 @@ if [ "$GAMING" = "true" ]; then
 
     copr_manage disable "${GAMING_COPR[@]}"
 fi
+
+# Remove bloat after all packages are installed so group deps are present to remove
+if [ -n "$REMOVALS" ]; then
+    echo "Removing bloat packages..."
+    dnf remove -y $REMOVALS || true
+fi
+
 
 # --- Cleanup global repos ---
 yq -r '.repos.url // {} | keys[]' "$PKG_FILE" | while read -r name; do

@@ -5,7 +5,7 @@ usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
     echo "Options:"
-    echo "  -d, --desktop   Desktop environment: kde, cosmic (default: kde)"
+    echo "  -d, --desktop   Desktop environment: kde, gnome, cosmic (default: kde)"
     echo "  -g, --gaming    Enable gaming packages (default: false)"
     echo "  -h, --help      Show this help message"
     echo ""
@@ -41,23 +41,26 @@ while [[ $# -gt 0 ]]; do
 done
 
 case "$DESKTOP_ENV" in
-    kde)       BASE_IMAGE="kinoite" ;;
-    cosmic)    BASE_IMAGE="cosmic-atomic" ;;
+    kde)    BASE_IMAGE="quay.io/fedora-ostree-desktops/kinoite" ;;
+    gnome)  BASE_IMAGE="quay.io/fedora-ostree-desktops/silverblue" ;;
+    cosmic) BASE_IMAGE="quay.io/fedora-ostree-desktops/cosmic-atomic" ;;
     *)
-        echo "Error: Unknown desktop environment '$DESKTOP_ENV'. Must be one of: kde, cosmic"
+        echo "Error: Unknown desktop environment '$DESKTOP_ENV'. Must be one of: kde, gnome, cosmic"
         exit 1
         ;;
 esac
 
-TAG="fe02-os:${DESKTOP_ENV}${GAMING:+"-gaming"}"
 if [[ "$GAMING" == "true" ]]; then
     TAG="fe02-os:${DESKTOP_ENV}-gaming"
+else
+    TAG="fe02-os:${DESKTOP_ENV}"
 fi
 
 echo "Building Fe02-OS locally..."
-echo "  Desktop : $DESKTOP_ENV (base image: $BASE_IMAGE)"
-echo "  Gaming  : $GAMING"
-echo "  Tag     : $TAG"
+echo "  Desktop    : $DESKTOP_ENV"
+echo "  Base Image : $BASE_IMAGE"
+echo "  Gaming     : $GAMING"
+echo "  Tag        : $TAG"
 echo ""
 
 podman build \

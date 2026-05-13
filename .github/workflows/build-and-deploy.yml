@@ -21,20 +21,28 @@ jobs:
     strategy:
       matrix:
         include:
-          - base_image: kinoite
-            desktop: kde
+          - desktop: kde
+            base_image: quay.io/fedora-ostree-desktops/kinoite
             tag: kde
             gaming: false
-          - base_image: kinoite
-            desktop: kde
+          - desktop: kde
+            base_image: quay.io/fedora-ostree-desktops/kinoite
             tag: kde-gaming
             gaming: true
-          - base_image: cosmic-atomic
-            desktop: cosmic
+          - desktop: gnome
+            base_image: quay.io/fedora-ostree-desktops/silverblue
+            tag: gnome
+            gaming: false
+          - desktop: gnome
+            base_image: quay.io/fedora-ostree-desktops/silverblue
+            tag: gnome-gaming
+            gaming: true
+          - desktop: cosmic
+            base_image: quay.io/fedora-ostree-desktops/cosmic-atomic
             tag: cosmic
             gaming: false
-          - base_image: cosmic-atomic
-            desktop: cosmic
+          - desktop: cosmic
+            base_image: quay.io/fedora-ostree-desktops/cosmic-atomic
             tag: cosmic-gaming
             gaming: true
     defaults:
