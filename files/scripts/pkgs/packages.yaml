@@ -6,7 +6,8 @@ repos:
   url:
     tailscale: "https://pkgs.tailscale.com/stable/fedora/tailscale.repo"
   # dnf copr enable → disabled after install
-  copr: []
+  copr:
+    - scottames/ghostty
 
 packages:
   remove:
@@ -28,9 +29,13 @@ packages:
   # DE is already provided by the base image
   variants:
     gnome:
-      packages: []
+      packages:
+        - gnome-tweaks
+        - adw-gtk3-theme
+        - ghostty
     cosmic:
-      packages: []
+      packages:
+        - ghostty
     kde:
       packages:
         - gnome-disk-utility
