@@ -14,6 +14,9 @@ packages:
     - firefox
     - firefox-langpacks
     - yelp
+    - gnome-classic-session
+    - gnome-shell-extension*
+    - gnome-tour
 
   # Installed for every variant
   common:
