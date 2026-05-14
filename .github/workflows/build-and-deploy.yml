@@ -67,7 +67,9 @@ jobs:
 
       - name: 'Build and Push Image'
         run: |
+          source ENVAR
           podman build \
+            --build-arg FEDORA_MAJOR_VERSION=${MAJOR_VERSION} \
             --build-arg BASE_IMAGE_NAME=${{ matrix.base_image }} \
             --build-arg DESKTOP_ENV=${{ matrix.desktop }} \
             --build-arg GAMING=${{ matrix.gaming }} \

@@ -2,10 +2,8 @@
 # Build-time repos are ephemeral — set up before install, cleaned up after
 
 repos:
-  # Fetched via curl → /etc/yum.repos.d/<name>.repo, removed after install
   url:
     tailscale: "https://pkgs.tailscale.com/stable/fedora/tailscale.repo"
-  # dnf copr enable → disabled after install
   copr:
     - scottames/ghostty
 
@@ -18,7 +16,7 @@ packages:
     - gnome-shell-extension*
     - gnome-tour
 
-  # Installed for every variant
+  # Installed on every image, regardless of variant.
   common:
     - neovim
     - distrobox
@@ -28,8 +26,7 @@ packages:
     - tailscale
     - btop
 
-  # Only variant-specific packages — common packages are not repeated here
-  # DE is already provided by the base image
+  # Only variant-specific packages.
   variants:
     gnome:
       packages:
@@ -54,3 +51,13 @@ packages:
       - steam
       - lutris
       - mangohud
+
+# This is here to remove desktop entries for packages that you cannot remove,
+# and/or do not want to see or otherwise interact with.
+desktop_entries:
+  remove:
+    common: []
+    gnome:
+      - org.freedesktop.MalcontentControl.desktop
+    cosmic: []
+    kde: []

@@ -15,6 +15,9 @@ usage() {
     echo "  $0 --desktop kde --gaming"
 }
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../ENVAR"
+
 DESKTOP_ENV="kde"
 GAMING="false"
 
@@ -64,6 +67,7 @@ echo "  Tag        : $TAG"
 echo ""
 
 podman build \
+  --build-arg FEDORA_MAJOR_VERSION="$MAJOR_VERSION" \
   --build-arg BASE_IMAGE_NAME="$BASE_IMAGE" \
   --build-arg DESKTOP_ENV="$DESKTOP_ENV" \
   --build-arg GAMING="$GAMING" \
