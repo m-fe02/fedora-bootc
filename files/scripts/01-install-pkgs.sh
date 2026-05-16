@@ -23,9 +23,6 @@ if ! command -v yq &> /dev/null; then
     "${DNF_INSTALL[@]}" yq
 fi
 
-# dnf5-plugins provides the copr subcommand, not present in the minimal base image
-dnf install -y dnf5-plugins
-
 copr_manage() {
     local action=$1; shift
     for copr in "$@"; do
@@ -96,6 +93,3 @@ yq -r '.repos.url // {} | keys[]' "$PKG_FILE" | while read -r name; do
 done
 
 copr_manage disable "${GLOBAL_COPR[@]}"
-
-# Install CachyOS Kernel
-bash /ctx/scripts/install-cachyos-kernel.sh
