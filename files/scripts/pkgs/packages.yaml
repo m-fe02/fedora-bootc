@@ -15,6 +15,7 @@ packages:
     - gnome-classic-session
     - gnome-shell-extension*
     - gnome-tour
+    - gnome-system-monitor
 
   # Installed on every image, regardless of variant.
   common:
